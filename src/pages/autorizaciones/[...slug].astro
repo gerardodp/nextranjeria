@@ -1,0 +1,12 @@
+---
+import ContentLayout from '@layouts/ContentLayout.astro';
+import { getCategoryPaths } from '@lib/content';
+
+export async function getStaticPaths() {
+  return await getCategoryPaths('autorizaciones');
+}
+
+const { entry } = Astro.props;
+---
+
+<ContentLayout entry={entry} />

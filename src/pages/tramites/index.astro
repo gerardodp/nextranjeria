@@ -1,0 +1,55 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import Card from '@components/ui/Card.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { pageUrl } from '@lib/utils';
+
+const all = await getCollection('pages');
+const pages = all
+  .filter(
+    (p: CollectionEntry<'pages'>) =>
+      p.data.category === 'tramites' &&
+      p.data.status !== 'draft' &&
+      !p.data.noindex,
+  )
+  .sort((a: CollectionEntry<'pages'>, b: CollectionEntry<'pages'>) =>
+    a.data.title.localeCompare(b.data.title, 'es'),
+  );
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Trámites y procedimientos' },
+];
+---
+
+<ListingLayout
+  title="Trámites y procedimientos"
+  description="Procedimientos administrativos transversales a toda la extranjería: NIE, TIE, empadronamiento, cita previa, recursos y otros trámites esenciales."
+  crumbs={crumbs}
+>
+  {pages.length === 0 ? (
+    <p class="empty">Aún no hay páginas publicadas en esta sección.</p>
+  ) : (
+    <div class="grid">
+      {pages.map((page: CollectionEntry<'pages'>) => (
+        <Card
+          href={pageUrl(page.data.category, page.id)}
+          title={page.data.title}
+          description={page.data.description}
+        />
+      ))}
+    </div>
+  )}
+</ListingLayout>
+
+<style>
+  .empty {
+    color: var(--color-ink-muted);
+    font-style: italic;
+  }
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+</style>

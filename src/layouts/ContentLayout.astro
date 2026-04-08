@@ -1,0 +1,176 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+import FechaRevision from '@components/layout/FechaRevision.astro';
+import AplicaA from '@components/layout/AplicaA.astro';
+import RelatedContent from '@components/layout/RelatedContent.astro';
+import TerminosUsados from '@components/layout/TerminosUsados.astro';
+import HubNav from '@components/layout/HubNav.astro';
+import StatusPill from '@components/ui/StatusPill.astro';
+import FichaRapida from '@components/content/FichaRapida.astro';
+import { mdxComponents } from '@/mdx-components';
+import { getRelatedItems } from '@lib/related-content';
+import { resolveGlossaryTerms, getHubPages } from '@lib/content';
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@lib/seo';
+import { pageUrl } from '@lib/utils';
+
+interface Props {
+  entry: CollectionEntry<'pages'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+
+const { Content, headings: _headings } = await render(entry);
+
+const related = await getRelatedItems(entry);
+const glossaryTerms = await resolveGlossaryTerms(data.glossaryTerms);
+
+// Construir hub nav si la página pertenece a un hub
+const hubItems = data.hub
+  ? (await getHubPages(data.hub)).map((p) => ({
+      slug: p.id,
+      title: p.data.title,
+      href: pageUrl(p.data.category, p.id, p.data.hub),
+    }))
+  : [];
+
+// Breadcrumbs
+const crumbs: { label: string; href?: string }[] = [
+  { label: 'Inicio', href: '/' },
+];
+if (data.hub === 'regularizacion-2026') {
+  crumbs.push({
+    label: 'Regularización 2026',
+    href: '/regularizacion-2026/',
+  });
+} else {
+  crumbs.push({
+    label: categoryLabel(data.category),
+    href: `/${data.category}/`,
+  });
+}
+crumbs.push({ label: data.title });
+
+function categoryLabel(cat: string): string {
+  const labels: Record<string, string> = {
+    autorizaciones: 'Autorizaciones',
+    trabajo: 'Trabajo',
+    estudios: 'Estudios',
+    'ciudadanos-ue': 'Ciudadanos UE',
+    'proteccion-internacional': 'Protección internacional',
+    nacionalidad: 'Nacionalidad',
+    tramites: 'Trámites',
+    normativa: 'Normativa',
+    actualidad: 'Actualidad',
+  };
+  return labels[cat] ?? cat;
+}
+
+const currentPath = Astro.url.pathname;
+const jsonLdArticle = buildArticleJsonLd(entry, {
+  site: Astro.site!,
+  pageUrl: currentPath,
+});
+const jsonLdBreadcrumb = buildBreadcrumbJsonLd(crumbs, {
+  site: Astro.site!,
+  pageUrl: currentPath,
+});
+const jsonLd = [jsonLdArticle, jsonLdBreadcrumb];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  canonicalUrl={data.canonicalUrl}
+  noindex={data.noindex}
+  ogImage={data.featuredImage}
+  jsonLd={jsonLd}
+>
+  <article class="content-layout">
+    <div class="content-layout__inner">
+      {hubItems.length > 1 && (
+        <HubNav
+          items={hubItems}
+          currentSlug={entry.id}
+          hubTitle="Hub Regularización 2026"
+        />
+      )}
+      <Breadcrumbs items={crumbs} />
+      <header class="content-layout__header">
+        <div class="content-layout__status">
+          <StatusPill status={data.normativeStatus} />
+        </div>
+        <h1 class="content-layout__title">{data.title}</h1>
+        <p class="content-layout__subtitle">{data.description}</p>
+      </header>
+
+      <FichaRapida
+        normativa={data.fichaRapida?.normativa}
+        quien={data.fichaRapida?.quien}
+        plazo={data.fichaRapida?.plazo}
+        coste={data.fichaRapida?.coste}
+        ultimaActualizacion={data.lastReviewed.toLocaleDateString('es-ES', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        })}
+      />
+
+      <div class="prose-legal">
+        <Content components={mdxComponents} />
+      </div>
+
+      <AplicaA profiles={data.appliesToProfiles} />
+
+      <TerminosUsados terms={glossaryTerms} />
+
+      <RelatedContent items={related} />
+
+      <FechaRevision
+        lastReviewed={data.lastReviewed}
+        updatedDate={data.updatedDate}
+        pubDate={data.pubDate}
+      />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .content-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .content-layout__inner {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .content-layout__header {
+    margin-bottom: 1.5rem;
+  }
+  .content-layout__status {
+    margin-bottom: 1rem;
+  }
+  .content-layout__title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-ink);
+    margin: 0 0 0.65rem 0;
+    letter-spacing: -0.015em;
+  }
+  .content-layout__subtitle {
+    font-size: 1.1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    margin: 0;
+  }
+  @media (max-width: 640px) {
+    .content-layout__title {
+      font-size: 1.7rem;
+    }
+    .content-layout__subtitle {
+      font-size: 1rem;
+    }
+  }
+</style>

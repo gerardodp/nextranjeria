@@ -1,0 +1,112 @@
+{
+  "$schema": "./content-backlog.schema.json",
+  "description": "Backlog de contenidos pendientes. Se usa en el dashboard (Hito 4) y lo genera/refresca /refresh-backlog (Hito 3). Fase 1 del plan editorial.",
+  "phases": {
+    "fase-0": {
+      "label": "Fase 0 — Lanzamiento inmediato",
+      "status": "in-progress"
+    },
+    "fase-1": {
+      "label": "Fase 1 — Contenidos urgentes y de alta demanda",
+      "status": "pending"
+    }
+  },
+  "items": [
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "autorizaciones",
+      "slug": "arraigo-sociolaboral",
+      "title": "Arraigo sociolaboral",
+      "priority": "high",
+      "reason": "Modalidad muy demandada tras la reforma del reglamento"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "autorizaciones",
+      "slug": "arraigo-socioformativo",
+      "title": "Arraigo socioformativo",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "autorizaciones",
+      "slug": "arraigo-familiar",
+      "title": "Arraigo familiar",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "autorizaciones",
+      "slug": "arraigo-segunda-oportunidad",
+      "title": "Arraigo de segunda oportunidad",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "guides",
+      "slug": "estoy-en-espana-sin-papeles",
+      "title": "Estoy en España sin papeles",
+      "priority": "high",
+      "reason": "Guía por situación más demandada"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "guides",
+      "slug": "quiero-venir-a-trabajar-a-espana",
+      "title": "Quiero venir a trabajar a España",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "guides",
+      "slug": "quiero-traer-a-mi-familia",
+      "title": "Quiero traer a mi familia",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "tramites",
+      "slug": "nie",
+      "title": "El NIE: qué es y cómo obtenerlo",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "tramites",
+      "slug": "tie",
+      "title": "La TIE: tarjeta de identidad de extranjero",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "tramites",
+      "slug": "cita-previa-extranjeria",
+      "title": "Cita previa en extranjería",
+      "priority": "high"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "tramites",
+      "slug": "antecedentes-penales",
+      "title": "Antecedentes penales del país de origen",
+      "priority": "high",
+      "reason": "Pieza clave para arraigo y regularización 2026"
+    },
+    {
+      "phase": "fase-1",
+      "collection": "pages",
+      "category": "nacionalidad",
+      "slug": "nacionalidad-por-residencia",
+      "title": "Nacionalidad por residencia",
+      "priority": "high"
+    }
+  ]
+}

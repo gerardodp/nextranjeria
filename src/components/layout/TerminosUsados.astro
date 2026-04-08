@@ -1,0 +1,76 @@
+---
+interface Term {
+  slug: string;
+  term: string;
+  shortDefinition: string;
+}
+
+interface Props {
+  terms: Term[];
+}
+
+const { terms } = Astro.props;
+---
+
+{terms.length > 0 && (
+  <section class="terminos-usados" aria-label="Términos usados">
+    <h2 class="terminos-usados__title">Términos usados</h2>
+    <dl class="terminos-usados__list">
+      {terms.map((t) => (
+        <div class="terminos-usados__item">
+          <dt>
+            <a href={`/glosario/${t.slug}/`}>{t.term}</a>
+          </dt>
+          <dd>{t.shortDefinition}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+)}
+
+<style>
+  .terminos-usados {
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .terminos-usados__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: var(--color-ink);
+  }
+  .terminos-usados__list {
+    margin: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .terminos-usados__item {
+    display: grid;
+    grid-template-columns: minmax(140px, 22%) 1fr;
+    gap: 0.5rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .terminos-usados__item dt {
+    font-weight: 600;
+  }
+  .terminos-usados__item dt a {
+    color: var(--color-brand-800);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--color-brand-500);
+  }
+  .terminos-usados__item dt a:hover {
+    border-bottom-style: solid;
+  }
+  .terminos-usados__item dd {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+  @media (max-width: 560px) {
+    .terminos-usados__item {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+interface HubItem {
+  slug: string;
+  title: string;
+  href: string;
+}
+
+interface Props {
+  items: HubItem[];
+  currentSlug?: string;
+  hubTitle?: string;
+}
+
+const { items, currentSlug, hubTitle = 'En este hub' } = Astro.props;
+---
+
+{items.length > 0 && (
+  <nav class="hub-nav" aria-label={hubTitle}>
+    <div class="hub-nav__title">{hubTitle}</div>
+    <ul>
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class={item.slug === currentSlug ? 'is-current' : ''}
+            aria-current={item.slug === currentSlug ? 'page' : undefined}
+          >
+            {item.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .hub-nav {
+    background: var(--color-brand-50);
+    border: 1px solid var(--color-brand-200);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .hub-nav__title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brand-800);
+    margin-bottom: 0.6rem;
+  }
+  .hub-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .hub-nav a {
+    display: block;
+    padding: 0.35rem 0.55rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    font-size: 0.92rem;
+    border-radius: 3px;
+    line-height: 1.4;
+  }
+  .hub-nav a:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--color-brand-900);
+  }
+  .hub-nav a.is-current {
+    background: #fff;
+    color: var(--color-brand-800);
+    font-weight: 600;
+    border-left: 2px solid var(--color-brand-700);
+  }
+</style>

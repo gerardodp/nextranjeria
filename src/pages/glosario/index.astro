@@ -1,0 +1,88 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import { getGlossaryByLetter } from '@lib/glossary';
+
+const groups = await getGlossaryByLetter();
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Glosario' },
+];
+---
+
+<ListingLayout
+  title="Glosario"
+  description="Términos clave de extranjería, inmigración y nacionalidad explicados en lenguaje llano, con referencia a la normativa aplicable."
+  crumbs={crumbs}
+>
+  {groups.length === 0 ? (
+    <p class="glosario-empty">Aún no hay términos publicados en el glosario.</p>
+  ) : (
+    groups.map((group) => (
+      <section class="glosario-group">
+        <h2 class="glosario-group__letter">{group.letter}</h2>
+        <dl class="glosario-group__list">
+          {group.entries.map((entry) => (
+            <div class="glosario-group__item">
+              <dt>
+                <a href={`/glosario/${entry.id}/`}>{entry.data.term}</a>
+              </dt>
+              <dd>{entry.data.shortDefinition}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    ))
+  )}
+</ListingLayout>
+
+<style>
+  .glosario-empty {
+    color: var(--color-ink-muted);
+    font-style: italic;
+  }
+  .glosario-group {
+    margin-bottom: 2.5rem;
+  }
+  .glosario-group__letter {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-brand-800);
+    margin: 0 0 0.85rem 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-brand-200);
+  }
+  .glosario-group__list {
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .glosario-group__item {
+    display: grid;
+    grid-template-columns: minmax(180px, 28%) 1fr;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  .glosario-group__item dt {
+    font-weight: 600;
+  }
+  .glosario-group__item dt a {
+    color: var(--color-brand-800);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--color-brand-500);
+  }
+  .glosario-group__item dt a:hover {
+    border-bottom-style: solid;
+  }
+  .glosario-group__item dd {
+    margin: 0;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+  }
+  @media (max-width: 560px) {
+    .glosario-group__item {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

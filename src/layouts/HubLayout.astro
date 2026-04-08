@@ -1,0 +1,90 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+import Card from '@components/ui/Card.astro';
+import StatusPill from '@components/ui/StatusPill.astro';
+import type { CollectionEntry } from 'astro:content';
+import { pageUrl } from '@lib/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  hubId: string;
+  pages: CollectionEntry<'pages'>[];
+}
+
+const { title, description, hubId, pages } = Astro.props;
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: title },
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="hub-layout">
+    <div class="hub-layout__inner">
+      <Breadcrumbs items={crumbs} />
+
+      <header class="hub-layout__header">
+        <div class="hub-layout__eyebrow">Hub de contenidos</div>
+        <h1 class="hub-layout__title">{title}</h1>
+        <p class="hub-layout__subtitle">{description}</p>
+      </header>
+
+      <section class="hub-layout__grid">
+        {pages.map((page) => (
+          <Card
+            href={pageUrl(page.data.category, page.id, hubId)}
+            title={page.data.title}
+            description={page.data.description}
+          >
+            <div class="hub-layout__card-meta">
+              <StatusPill status={page.data.normativeStatus} />
+            </div>
+          </Card>
+        ))}
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .hub-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .hub-layout__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+  .hub-layout__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.5rem;
+  }
+  .hub-layout__title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 0.65rem 0;
+    letter-spacing: -0.02em;
+  }
+  .hub-layout__subtitle {
+    font-size: 1.15rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    margin: 0 0 2rem 0;
+    max-width: 52rem;
+  }
+  .hub-layout__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .hub-layout__card-meta {
+    margin-top: 0.75rem;
+  }
+</style>

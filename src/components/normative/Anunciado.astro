@@ -1,0 +1,14 @@
+---
+import StatusBlock from './_StatusBlock.astro';
+
+interface Props {
+  fuente?: string;
+  fecha?: string;
+}
+
+const { fuente, fecha } = Astro.props;
+---
+
+<StatusBlock variant="anunciado" label="Anunciado" fuente={fuente} fecha={fecha}>
+  <slot />
+</StatusBlock>

@@ -1,0 +1,72 @@
+---
+import type { normativeStatuses } from '@/content.config';
+
+interface Props {
+  status: (typeof normativeStatuses)[number];
+}
+const { status } = Astro.props;
+
+const labels: Record<Props['status'], string> = {
+  vigente: 'Normativa vigente',
+  pendiente: 'Pendiente de publicación / desarrollo',
+  transitorio: 'Régimen transitorio',
+  historico: 'Contenido histórico',
+};
+---
+
+<span class={`status-pill status-pill--${status}`} aria-label={`Estado normativo: ${labels[status]}`}>
+  <span class="status-pill__dot" />
+  {labels[status]}
+</span>
+
+<style>
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid;
+    line-height: 1.4;
+  }
+  .status-pill__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .status-pill--vigente {
+    background: var(--color-status-vigente-bg);
+    color: var(--color-status-vigente);
+    border-color: var(--color-status-vigente-border);
+  }
+  .status-pill--vigente .status-pill__dot {
+    background: var(--color-status-vigente);
+  }
+  .status-pill--pendiente {
+    background: var(--color-status-pendiente-bg);
+    color: var(--color-status-pendiente);
+    border-color: var(--color-status-pendiente-border);
+  }
+  .status-pill--pendiente .status-pill__dot {
+    background: var(--color-status-pendiente);
+  }
+  .status-pill--transitorio {
+    background: var(--color-status-transitorio-bg);
+    color: var(--color-status-transitorio);
+    border-color: var(--color-status-transitorio-border);
+  }
+  .status-pill--transitorio .status-pill__dot {
+    background: var(--color-status-transitorio);
+  }
+  .status-pill--historico {
+    background: var(--color-status-historico-bg);
+    color: var(--color-status-historico);
+    border-color: var(--color-status-historico-border);
+  }
+  .status-pill--historico .status-pill__dot {
+    background: var(--color-status-historico);
+  }
+</style>

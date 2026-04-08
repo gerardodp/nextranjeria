@@ -1,0 +1,33 @@
+---
+interface Props {
+  variant?: 'neutral' | 'brand';
+}
+const { variant = 'neutral' } = Astro.props;
+---
+
+<span class={`badge badge--${variant}`}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.18rem 0.55rem;
+    border-radius: 2px;
+    line-height: 1.4;
+  }
+  .badge--neutral {
+    background: var(--color-paper-soft);
+    color: var(--color-ink-soft);
+    border: 1px solid var(--color-border);
+  }
+  .badge--brand {
+    background: var(--color-brand-800);
+    color: #fff;
+  }
+</style>

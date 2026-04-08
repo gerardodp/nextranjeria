@@ -1,0 +1,40 @@
+---
+interface Props {
+  titulo?: string;
+}
+const { titulo = 'Ojo' } = Astro.props;
+---
+
+<aside class="ojo" role="note" aria-label={titulo}>
+  <div class="ojo__label">{titulo}</div>
+  <div class="ojo__body"><slot /></div>
+</aside>
+
+<style>
+  .ojo {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1rem;
+    margin: 1.5rem 0;
+    padding: 0.85rem 1.1rem;
+    background: var(--color-bloque-ojo-bg);
+    border-left: 3px solid var(--color-bloque-ojo);
+    border-radius: 0 4px 4px 0;
+  }
+  .ojo__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-bloque-ojo);
+    padding-top: 0.15rem;
+    white-space: nowrap;
+  }
+  .ojo__body {
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+  .ojo__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,202 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+import FechaRevision from '@components/layout/FechaRevision.astro';
+import Badge from '@components/ui/Badge.astro';
+import Alert from '@components/ui/Alert.astro';
+import { mdxComponents } from '@/mdx-components';
+import { buildLegislationJsonLd, buildBreadcrumbJsonLd } from '@lib/seo';
+import { normativaTypeLabel, normativaStatusLabel } from '@lib/normativa';
+import { formatDateLong } from '@lib/utils';
+
+interface Props {
+  entry: CollectionEntry<'normativa'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Normativa', href: '/normativa/' },
+  { label: data.shortTitle },
+];
+
+const currentPath = Astro.url.pathname;
+const jsonLd = [
+  buildLegislationJsonLd(entry, { site: Astro.site!, pageUrl: currentPath }),
+  buildBreadcrumbJsonLd(crumbs, { site: Astro.site!, pageUrl: currentPath }),
+];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.summary}
+  noindex={data.noindex}
+  jsonLd={jsonLd}
+>
+  <article class="normativa-layout">
+    <div class="normativa-layout__inner">
+      <Breadcrumbs items={crumbs} />
+
+      <header class="normativa-layout__header">
+        <div class="normativa-layout__meta">
+          <Badge>{normativaTypeLabel(data.type)}</Badge>
+          <Badge variant="brand">{normativaStatusLabel(data.status)}</Badge>
+          {data.officialQnA && (
+            <Badge>Contexto institucional · sin valor normativo</Badge>
+          )}
+        </div>
+        <h1 class="normativa-layout__title">{data.title}</h1>
+        <p class="normativa-layout__longtitle">{data.longTitle}</p>
+      </header>
+
+      {data.officialQnA && (
+        <Alert variant="warning" title="Documento de contexto institucional">
+          Este material (Q&amp;A, nota de prensa o similar) es útil para entender
+          la orientación política y administrativa, pero <strong>no tiene valor
+          normativo por sí mismo</strong>. Solo la norma publicada en BOE es
+          fuente vinculante.
+        </Alert>
+      )}
+
+      <section class="normativa-layout__ficha">
+        <dl>
+          <div>
+            <dt>Materia</dt>
+            <dd>{data.subject}</dd>
+          </div>
+          {data.boeId && (
+            <div>
+              <dt>Identificador BOE</dt>
+              <dd>
+                {data.boeUrl ? (
+                  <a href={data.boeUrl} rel="external">{data.boeId}</a>
+                ) : (
+                  data.boeId
+                )}
+              </dd>
+            </div>
+          )}
+          {data.publishedDate && (
+            <div>
+              <dt>Publicación</dt>
+              <dd>{formatDateLong(data.publishedDate)}</dd>
+            </div>
+          )}
+          {data.effectiveDate && (
+            <div>
+              <dt>Entrada en vigor</dt>
+              <dd>{formatDateLong(data.effectiveDate)}</dd>
+            </div>
+          )}
+          {data.pdfPath && (
+            <div>
+              <dt>PDF</dt>
+              <dd><a href={data.pdfPath} rel="external">Descargar</a></dd>
+            </div>
+          )}
+        </dl>
+      </section>
+
+      <section class="normativa-layout__summary">
+        <h2>Resumen</h2>
+        <p>{data.summary}</p>
+      </section>
+
+      {Content && (
+        <div class="prose-legal">
+          <Content components={mdxComponents} />
+        </div>
+      )}
+
+      <FechaRevision
+        lastReviewed={data.lastReviewed}
+        updatedDate={data.updatedDate}
+        pubDate={data.pubDate}
+      />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .normativa-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .normativa-layout__inner {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .normativa-layout__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .normativa-layout__title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+  .normativa-layout__longtitle {
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic;
+  }
+  .normativa-layout__ficha {
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem 1.4rem;
+    margin: 1.75rem 0;
+  }
+  .normativa-layout__ficha dl {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .normativa-layout__ficha dl > div {
+    display: grid;
+    grid-template-columns: minmax(160px, 30%) 1fr;
+    gap: 0.5rem 1rem;
+    font-size: 0.92rem;
+  }
+  .normativa-layout__ficha dt {
+    font-weight: 600;
+    color: var(--color-ink-soft);
+  }
+  .normativa-layout__ficha dd {
+    margin: 0;
+    color: var(--color-ink);
+  }
+  .normativa-layout__summary {
+    margin: 1.5rem 0 2rem;
+  }
+  .normativa-layout__summary h2 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brand-800);
+    margin: 0 0 0.5rem 0;
+  }
+  .normativa-layout__summary p {
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--color-ink);
+    margin: 0;
+  }
+  @media (max-width: 560px) {
+    .normativa-layout__ficha dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

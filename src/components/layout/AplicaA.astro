@@ -1,0 +1,82 @@
+---
+import Chip from '@components/ui/Chip.astro';
+import type { profileTags } from '@/content.config';
+
+interface Props {
+  profiles?: readonly (typeof profileTags)[number][];
+  situations?: readonly { slug: string; title: string }[];
+}
+
+const { profiles = [], situations = [] } = Astro.props;
+
+const profileLabels: Record<(typeof profileTags)[number], string> = {
+  'sin-papeles': 'Personas sin papeles',
+  'recien-llegado': 'Recién llegados',
+  estudiante: 'Estudiantes',
+  trabajador: 'Trabajadores',
+  emprendedor: 'Emprendedores',
+  familia: 'Familiares',
+  'ciudadano-ue': 'Ciudadanos UE',
+  'solicitante-asilo': 'Solicitantes de asilo',
+  'profesional-cualificado': 'Profesionales cualificados',
+};
+
+const hasContent = profiles.length > 0 || situations.length > 0;
+---
+
+{hasContent && (
+  <section class="aplica-a" aria-label="A quién aplica">
+    <h3 class="aplica-a__title">Aplica a</h3>
+    {profiles.length > 0 && (
+      <div class="aplica-a__group">
+        <div class="aplica-a__sublabel">Perfiles</div>
+        <div class="aplica-a__chips">
+          {profiles.map((p) => (
+            <Chip>{profileLabels[p] ?? p}</Chip>
+          ))}
+        </div>
+      </div>
+    )}
+    {situations.length > 0 && (
+      <div class="aplica-a__group">
+        <div class="aplica-a__sublabel">Situaciones</div>
+        <div class="aplica-a__chips">
+          {situations.map((s) => (
+            <Chip href={`/guias/${s.slug}/`}>{s.title}</Chip>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+)}
+
+<style>
+  .aplica-a {
+    margin: 2rem 0 1.25rem;
+    padding: 1rem 1.2rem;
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+  .aplica-a__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brand-800);
+    margin: 0 0 0.75rem 0;
+  }
+  .aplica-a__group + .aplica-a__group {
+    margin-top: 0.75rem;
+  }
+  .aplica-a__sublabel {
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin-bottom: 0.4rem;
+  }
+  .aplica-a__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

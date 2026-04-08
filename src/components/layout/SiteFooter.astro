@@ -1,0 +1,111 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer no-print">
+  <div class="site-footer__inner">
+    <div class="site-footer__col">
+      <div class="site-footer__brand">Nextranjería</div>
+      <p class="site-footer__tagline">
+        Información clara, rigurosa y accesible sobre extranjería, inmigración
+        y nacionalidad en España.
+      </p>
+    </div>
+    <div class="site-footer__col">
+      <div class="site-footer__title">Contenido</div>
+      <ul>
+        <li><a href="/regularizacion-2026/">Regularización 2026</a></li>
+        <li><a href="/guias/">Guías por situación</a></li>
+        <li><a href="/autorizaciones/">Autorizaciones</a></li>
+        <li><a href="/normativa/">Normativa</a></li>
+        <li><a href="/glosario/">Glosario</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <div class="site-footer__title">Proyecto</div>
+      <ul>
+        <li><a href="/sobre/">Sobre Nextranjería</a></li>
+        <li><a href="/metodologia/">Metodología y fuentes</a></li>
+        <li><a href="/aviso-legal/">Aviso legal</a></li>
+        <li><a href="/politica-privacidad/">Política de privacidad</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <p>
+      © {year} Nextranjería. Este sitio no ofrece asesoramiento jurídico
+      individualizado. No sustituye la consulta con profesionales del derecho.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-paper-soft);
+    margin-top: 4rem;
+    padding: 3rem 1.5rem 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .site-footer__inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .site-footer__brand {
+    font-weight: 700;
+    color: var(--color-brand-800);
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .site-footer__tagline {
+    line-height: 1.55;
+    margin: 0;
+    max-width: 28rem;
+  }
+  .site-footer__title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ink);
+    margin-bottom: 0.6rem;
+  }
+  .site-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .site-footer__col a {
+    color: var(--color-ink-soft);
+    text-decoration: none;
+  }
+  .site-footer__col a:hover {
+    color: var(--color-brand-800);
+    text-decoration: underline;
+  }
+  .site-footer__bottom {
+    max-width: 72rem;
+    margin: 2rem auto 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.82rem;
+    color: var(--color-ink-muted);
+  }
+  .site-footer__bottom p {
+    margin: 0;
+    max-width: 60rem;
+  }
+  @media (max-width: 760px) {
+    .site-footer__inner {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+  }
+</style>

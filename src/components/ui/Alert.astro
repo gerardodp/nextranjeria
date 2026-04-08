@@ -1,0 +1,43 @@
+---
+interface Props {
+  variant?: 'info' | 'warning' | 'success';
+  title?: string;
+}
+const { variant = 'info', title } = Astro.props;
+---
+
+<div class={`alert alert--${variant}`} role={variant === 'warning' ? 'alert' : 'note'}>
+  {title && <div class="alert__title">{title}</div>}
+  <div class="alert__body"><slot /></div>
+</div>
+
+<style>
+  .alert {
+    margin: 1.25rem 0;
+    padding: 0.85rem 1.1rem;
+    border-left: 3px solid;
+    border-radius: 0 4px 4px 0;
+  }
+  .alert__title {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .alert__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .alert--info {
+    background: var(--color-brand-50);
+    border-color: var(--color-brand-700);
+    color: var(--color-ink);
+  }
+  .alert--warning {
+    background: var(--color-bloque-borrador-bg);
+    border-color: var(--color-bloque-borrador);
+    color: var(--color-ink);
+  }
+  .alert--success {
+    background: var(--color-status-vigente-bg);
+    border-color: var(--color-status-vigente);
+    color: var(--color-ink);
+  }
+</style>

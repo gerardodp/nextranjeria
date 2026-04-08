@@ -1,0 +1,56 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import Card from '@components/ui/Card.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { pageUrl } from '@lib/utils';
+
+const all = await getCollection('pages');
+const pages = all
+  .filter(
+    (p: CollectionEntry<'pages'>) =>
+      p.data.category === 'autorizaciones' &&
+      p.data.status !== 'draft' &&
+      !p.data.noindex &&
+      p.data.hub !== 'regularizacion-2026',
+  )
+  .sort((a: CollectionEntry<'pages'>, b: CollectionEntry<'pages'>) =>
+    a.data.title.localeCompare(b.data.title, 'es'),
+  );
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Autorizaciones de residencia' },
+];
+---
+
+<ListingLayout
+  title="Autorizaciones de residencia"
+  description="Permisos de residencia y trabajo en España: arraigo, reagrupación familiar, residencia no lucrativa, larga duración y otras vías."
+  crumbs={crumbs}
+>
+  {pages.length === 0 ? (
+    <p class="empty">Aún no hay páginas publicadas en esta sección.</p>
+  ) : (
+    <div class="grid">
+      {pages.map((page: CollectionEntry<'pages'>) => (
+        <Card
+          href={pageUrl(page.data.category, page.id)}
+          title={page.data.title}
+          description={page.data.description}
+        />
+      ))}
+    </div>
+  )}
+</ListingLayout>
+
+<style>
+  .empty {
+    color: var(--color-ink-muted);
+    font-style: italic;
+  }
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+</style>

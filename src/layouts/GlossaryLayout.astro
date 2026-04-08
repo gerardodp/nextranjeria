@@ -1,0 +1,103 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+import FechaRevision from '@components/layout/FechaRevision.astro';
+import { mdxComponents } from '@/mdx-components';
+import { buildDefinedTermJsonLd, buildBreadcrumbJsonLd } from '@lib/seo';
+
+interface Props {
+  entry: CollectionEntry<'glossary'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Glosario', href: '/glosario/' },
+  { label: data.term },
+];
+
+const currentPath = Astro.url.pathname;
+const jsonLd = [
+  buildDefinedTermJsonLd(entry, { site: Astro.site!, pageUrl: currentPath }),
+  buildBreadcrumbJsonLd(crumbs, { site: Astro.site!, pageUrl: currentPath }),
+];
+---
+
+<BaseLayout
+  title={data.term}
+  description={data.shortDefinition}
+  noindex={data.noindex}
+  jsonLd={jsonLd}
+>
+  <article class="glossary-layout">
+    <div class="glossary-layout__inner">
+      <Breadcrumbs items={crumbs} />
+      <header class="glossary-layout__header">
+        <div class="glossary-layout__eyebrow">Término del glosario</div>
+        <h1 class="glossary-layout__term">{data.term}</h1>
+        {data.aliases.length > 0 && (
+          <div class="glossary-layout__aliases">
+            También conocido como: {data.aliases.join(', ')}
+          </div>
+        )}
+      </header>
+
+      <p class="glossary-layout__short">{data.shortDefinition}</p>
+
+      <div class="prose-legal">
+        <Content components={mdxComponents} />
+      </div>
+
+      <FechaRevision
+        lastReviewed={data.lastReviewed}
+        updatedDate={data.updatedDate}
+        pubDate={data.pubDate}
+      />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .glossary-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .glossary-layout__inner {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+  .glossary-layout__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.5rem;
+  }
+  .glossary-layout__term {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem 0;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+  }
+  .glossary-layout__aliases {
+    font-size: 0.9rem;
+    color: var(--color-ink-muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .glossary-layout__short {
+    font-size: 1.15rem;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+    padding: 1rem 1.25rem;
+    background: var(--color-paper-soft);
+    border-left: 3px solid var(--color-brand-600);
+    border-radius: 0 4px 4px 0;
+    margin: 1.5rem 0;
+  }
+</style>

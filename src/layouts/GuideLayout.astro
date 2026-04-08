@@ -1,0 +1,112 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+import FechaRevision from '@components/layout/FechaRevision.astro';
+import RelatedContent from '@components/layout/RelatedContent.astro';
+import TerminosUsados from '@components/layout/TerminosUsados.astro';
+import StatusPill from '@components/ui/StatusPill.astro';
+import { mdxComponents } from '@/mdx-components';
+import { getRelatedItems } from '@lib/related-content';
+import { resolveGlossaryTerms } from '@lib/content';
+import { buildArticleJsonLd, buildBreadcrumbJsonLd } from '@lib/seo';
+
+interface Props {
+  entry: CollectionEntry<'guides'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const related = await getRelatedItems(entry);
+const glossaryTerms = await resolveGlossaryTerms(data.glossaryTerms);
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Guías por situación', href: '/guias/' },
+  { label: data.title },
+];
+
+const currentPath = Astro.url.pathname;
+const jsonLd = [
+  buildArticleJsonLd(entry, { site: Astro.site!, pageUrl: currentPath }),
+  buildBreadcrumbJsonLd(crumbs, { site: Astro.site!, pageUrl: currentPath }),
+];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  canonicalUrl={data.canonicalUrl}
+  noindex={data.noindex}
+  jsonLd={jsonLd}
+>
+  <article class="guide-layout">
+    <div class="guide-layout__inner">
+      <Breadcrumbs items={crumbs} />
+      <header class="guide-layout__header">
+        <div class="guide-layout__eyebrow">Guía por situación</div>
+        <div class="guide-layout__status">
+          <StatusPill status={data.normativeStatus} />
+        </div>
+        <h1 class="guide-layout__title">{data.title}</h1>
+        <p class="guide-layout__subtitle">{data.description}</p>
+        <div class="guide-layout__meta">
+          Lectura estimada: {data.estimatedReadTime} min
+        </div>
+      </header>
+
+      <div class="prose-legal">
+        <Content components={mdxComponents} />
+      </div>
+
+      <TerminosUsados terms={glossaryTerms} />
+      <RelatedContent items={related} />
+
+      <FechaRevision
+        lastReviewed={data.lastReviewed}
+        updatedDate={data.updatedDate}
+        pubDate={data.pubDate}
+      />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .guide-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .guide-layout__inner {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .guide-layout__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.5rem;
+  }
+  .guide-layout__status {
+    margin-bottom: 1rem;
+  }
+  .guide-layout__title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.65rem 0;
+    letter-spacing: -0.015em;
+  }
+  .guide-layout__subtitle {
+    font-size: 1.1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+  }
+  .guide-layout__meta {
+    font-size: 0.82rem;
+    color: var(--color-ink-muted);
+  }
+</style>

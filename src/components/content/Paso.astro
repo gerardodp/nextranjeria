@@ -1,0 +1,47 @@
+---
+interface Props {
+  titulo?: string;
+}
+const { titulo } = Astro.props;
+---
+
+<li class="paso">
+  {titulo && <strong class="paso__title">{titulo}</strong>}
+  <div class="paso__body">
+    <slot />
+  </div>
+</li>
+
+<style>
+  .paso {
+    counter-increment: paso;
+    position: relative;
+    padding-left: 2.4rem;
+    line-height: 1.55;
+  }
+  .paso::before {
+    content: counter(paso);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-brand-700);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .paso__title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+    color: var(--color-ink);
+  }
+  .paso__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

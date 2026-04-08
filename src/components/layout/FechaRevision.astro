@@ -1,0 +1,54 @@
+---
+interface Props {
+  lastReviewed: Date;
+  updatedDate?: Date;
+  pubDate: Date;
+}
+const { lastReviewed, updatedDate, pubDate } = Astro.props;
+
+function fmt(d: Date): string {
+  return d.toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+---
+
+<div class="fecha-revision" aria-label="Fechas de la página">
+  <span class="fecha-revision__item">
+    <span class="fecha-revision__label">Última revisión:</span>
+    <time datetime={lastReviewed.toISOString()}>{fmt(lastReviewed)}</time>
+  </span>
+  {updatedDate && updatedDate.getTime() !== lastReviewed.getTime() && (
+    <span class="fecha-revision__item">
+      <span class="fecha-revision__label">Última edición:</span>
+      <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time>
+    </span>
+  )}
+  <span class="fecha-revision__item">
+    <span class="fecha-revision__label">Publicado:</span>
+    <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time>
+  </span>
+</div>
+
+<style>
+  .fecha-revision {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    font-size: 0.82rem;
+    color: var(--color-ink-muted);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .fecha-revision__label {
+    color: var(--color-ink-soft);
+    font-weight: 500;
+    margin-right: 0.3rem;
+  }
+  .fecha-revision__item time {
+    color: var(--color-ink);
+  }
+</style>

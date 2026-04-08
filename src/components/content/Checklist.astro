@@ -1,0 +1,92 @@
+---
+interface Props {
+  titulo?: string;
+  imprimible?: boolean;
+}
+const { titulo = 'Documentación necesaria', imprimible = true } = Astro.props;
+---
+
+<section class="checklist" aria-label={titulo}>
+  <div class="checklist__header">
+    <h3 class="checklist__title">{titulo}</h3>
+    {imprimible && (
+      <button
+        type="button"
+        class="checklist__print no-print"
+        onclick="window.print()"
+      >
+        Imprimir
+      </button>
+    )}
+  </div>
+  <ul class="checklist__list">
+    <slot />
+  </ul>
+</section>
+
+<style>
+  .checklist {
+    margin: 1.75rem 0;
+    padding: 1.1rem 1.3rem;
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+  .checklist__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+  }
+  .checklist__title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-brand-800);
+    margin: 0;
+  }
+  .checklist__print {
+    background: transparent;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-ink-soft);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .checklist__print:hover {
+    background: var(--color-brand-50);
+    border-color: var(--color-brand-600);
+    color: var(--color-brand-800);
+  }
+  .checklist__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .checklist__list :global(li) {
+    position: relative;
+    padding-left: 1.75rem;
+    line-height: 1.5;
+  }
+  .checklist__list :global(li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 1.5px solid var(--color-border-strong);
+    border-radius: 3px;
+    background: #fff;
+  }
+  @media print {
+    .checklist {
+      break-inside: avoid;
+    }
+  }
+</style>

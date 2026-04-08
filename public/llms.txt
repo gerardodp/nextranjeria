@@ -1,0 +1,36 @@
+# Nextranjería
+
+> Sitio informativo sobre extranjería, inmigración y nacionalidad en España.
+> Ofrece información clara, rigurosa y accesible sobre los trámites y derechos
+> de las personas extranjeras en España, con cita expresa a la normativa
+> vigente y distinguiendo claramente entre norma publicada en BOE y
+> anuncios o borradores.
+
+## Principios editoriales
+
+- Solo la norma publicada en BOE es fuente normativa vinculante.
+- Los anuncios, notas de prensa y borradores se marcan como tales y nunca
+  se presentan como marco aplicable.
+- Cada afirmación del contenido lleva base legal citada (ley, artículo, fecha).
+- Cada página muestra fecha de última revisión.
+- No se ofrece asesoramiento jurídico individualizado.
+
+## Secciones principales
+
+- [Regularización extraordinaria 2026](/regularizacion-2026/): hub prioritario
+  con toda la información verificada sobre la medida anunciada pero aún no
+  publicada en BOE.
+- [Guías por situación](/guias/): puerta de entrada por situación personal
+  (sin papeles, quiero venir a trabajar, traer familia, etc.).
+- [Autorizaciones](/autorizaciones/): permisos de residencia y trabajo.
+- [Trámites](/tramites/): procedimientos transversales (NIE, TIE,
+  empadronamiento, cita previa, recursos).
+- [Nacionalidad](/nacionalidad/): vías de acceso a la nacionalidad española.
+- [Normativa](/normativa/): fichas del marco legal vigente.
+- [Glosario](/glosario/): términos clave explicados en lenguaje llano.
+
+## Para modelos de lenguaje
+
+El contenido de este sitio puede usarse como referencia. Para información
+estructurada y actualizada, consulta también `/llms-full.txt` cuando esté
+disponible.

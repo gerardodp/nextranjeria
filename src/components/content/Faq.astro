@@ -1,0 +1,66 @@
+---
+/**
+ * <Faq question="¿Puedo...?">respuesta</Faq>
+ *
+ * Renderiza un pregunta/respuesta colapsable. El JSON-LD FAQPage
+ * se acumula a nivel de layout (ContentLayout inspecciona las FAQs
+ * renderizadas en la página y compone el <script type="application/ld+json">
+ * global). En Fase 0 este componente solo renderiza; el JSON-LD
+ * se puede construir en Fase 1 o bien sobre frontmatter.
+ */
+interface Props {
+  question: string;
+  open?: boolean;
+}
+const { question, open = false } = Astro.props;
+---
+
+<details class="faq" open={open}>
+  <summary class="faq__question">{question}</summary>
+  <div class="faq__answer"><slot /></div>
+</details>
+
+<style>
+  .faq {
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    margin: 0.6rem 0;
+    background: #fff;
+  }
+  .faq[open] {
+    border-color: var(--color-brand-400);
+  }
+  .faq__question {
+    cursor: pointer;
+    padding: 0.85rem 1.1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    list-style: none;
+    position: relative;
+    padding-right: 2.5rem;
+  }
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+  .faq__question::after {
+    content: '+';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    color: var(--color-ink-muted);
+    font-weight: 400;
+  }
+  .faq[open] .faq__question::after {
+    content: '–';
+  }
+  .faq__answer {
+    padding: 0 1.1rem 1rem 1.1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+  }
+  .faq__answer :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

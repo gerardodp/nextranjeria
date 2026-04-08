@@ -1,0 +1,88 @@
+---
+interface RelatedItem {
+  title: string;
+  href: string;
+  description?: string;
+  eyebrow?: string;
+}
+
+interface Props {
+  items: RelatedItem[];
+  title?: string;
+}
+
+const { items, title = 'Contenido relacionado' } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="related-content" aria-label={title}>
+    <h2 class="related-content__title">{title}</h2>
+    <ul class="related-content__list">
+      {items.map((item) => (
+        <li>
+          <a href={item.href} class="related-content__item">
+            {item.eyebrow && <div class="related-content__eyebrow">{item.eyebrow}</div>}
+            <div class="related-content__label">{item.title}</div>
+            {item.description && (
+              <div class="related-content__description">{item.description}</div>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .related-content {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .related-content__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: var(--color-ink);
+  }
+  .related-content__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .related-content__item {
+    display: block;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background: #fff;
+    text-decoration: none;
+    color: inherit;
+  }
+  .related-content__item:hover {
+    border-color: var(--color-brand-600);
+    background: var(--color-brand-50);
+  }
+  .related-content__eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.2rem;
+  }
+  .related-content__label {
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.35;
+  }
+  .related-content__description {
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+    margin-top: 0.25rem;
+    line-height: 1.45;
+  }
+</style>

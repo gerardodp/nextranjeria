@@ -1,0 +1,59 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Contacto' },
+];
+---
+
+<ListingLayout
+  title="Contacto"
+  description="Cómo ponerte en contacto con Nextranjería para señalar errores, sugerir contenido o hacer preguntas generales."
+  crumbs={crumbs}
+>
+  <div class="prose-legal">
+    <h2>Para qué puedes escribir</h2>
+    <ul>
+      <li>Señalar un <strong>error o imprecisión</strong> en algún contenido.</li>
+      <li>Sugerir un tema nuevo o una mejora en uno existente.</li>
+      <li>Preguntar sobre la metodología del sitio.</li>
+      <li>Avisar de un enlace roto o un problema técnico.</li>
+    </ul>
+
+    <h2>Para qué NO puedes escribir</h2>
+    <p>
+      Nextranjería <strong>no ofrece asesoramiento jurídico individualizado</strong>.
+      Por favor, no envíes:
+    </p>
+    <ul>
+      <li>Consultas sobre tu caso personal ("¿me concederán el arraigo?",
+        "¿qué debo hacer con mi expediente?").</li>
+      <li>Documentación personal o de expedientes en curso.</li>
+      <li>Peticiones de intermediación ante la Administración.</li>
+    </ul>
+    <p>
+      Para asesoramiento sobre tu caso concreto, acude a un servicio
+      jurídico gratuito, a un abogado colegiado o a una ONG especializada.
+      Algunas opciones:
+    </p>
+    <ul>
+      <li><strong>Colegios de abogados</strong> — servicios de orientación
+        jurídica gratuita.</li>
+      <li><strong>CEAR, Red Acoge, SJM, Andalucía Acoge, ACCEM,
+        Provivienda</strong>, entre otras ONGs especializadas.</li>
+      <li><strong>Sindicatos</strong> — suelen tener servicios de
+        extranjería para sus afiliados.</li>
+      <li><strong>Servicios sociales municipales</strong> — pueden
+        orientarte sobre los recursos disponibles en tu zona.</li>
+    </ul>
+
+    <h2>Cómo escribir</h2>
+    <p>
+      Esta página todavía no tiene un formulario de contacto activo.
+      Cuando esté disponible, aparecerá aquí junto con las instrucciones.
+      Mientras tanto, si necesitas contactar con urgencia, las vías
+      oficiales listadas arriba son el mejor camino.
+    </p>
+  </div>
+</ListingLayout>

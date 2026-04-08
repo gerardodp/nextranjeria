@@ -1,0 +1,16 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import NormativaLayout from '@layouts/NormativaLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('normativa');
+  return entries.map((entry: CollectionEntry<'normativa'>) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<NormativaLayout entry={entry} />

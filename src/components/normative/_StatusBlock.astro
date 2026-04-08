@@ -1,0 +1,125 @@
+---
+/**
+ * Bloque genérico de estado normativo usado por los componentes
+ * <Anunciado>, <Borrador>, <BOE>, <EnVigor>, <EnLaPractica>, <Rumor>.
+ *
+ * No se usa directamente desde MDX. Prefijado con `_` para marcarlo
+ * como componente interno.
+ */
+interface Props {
+  variant: 'anunciado' | 'borrador' | 'boe' | 'envigor' | 'enpractica' | 'rumor';
+  label: string;
+  fuente?: string;
+  fecha?: string;
+  ref?: string;
+  desde?: string;
+}
+
+const { variant, label, fuente, fecha, ref, desde } = Astro.props;
+
+const metaParts = [
+  fuente && `Fuente: ${fuente}`,
+  fecha && `Fecha: ${fecha}`,
+  ref && `Ref: ${ref}`,
+  desde && `Desde: ${desde}`,
+].filter(Boolean);
+---
+
+<aside class={`status-block status-block--${variant}`} role="note" aria-label={label}>
+  <div class="status-block__header">
+    <span class="status-block__badge">{label}</span>
+    {metaParts.length > 0 && (
+      <span class="status-block__meta">{metaParts.join(' · ')}</span>
+    )}
+  </div>
+  <div class="status-block__body">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .status-block {
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 3px solid;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.97rem;
+  }
+  .status-block__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.45rem;
+  }
+  .status-block__badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+  .status-block__meta {
+    font-size: 0.82rem;
+    color: var(--color-ink-muted);
+  }
+  .status-block__body {
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+
+  .status-block--anunciado {
+    background: var(--color-bloque-anunciado-bg);
+    border-color: var(--color-bloque-anunciado-border);
+  }
+  .status-block--anunciado .status-block__badge {
+    background: var(--color-bloque-anunciado);
+    color: #fff;
+  }
+
+  .status-block--borrador {
+    background: var(--color-bloque-borrador-bg);
+    border-color: var(--color-bloque-borrador-border);
+  }
+  .status-block--borrador .status-block__badge {
+    background: var(--color-bloque-borrador);
+    color: #fff;
+  }
+
+  .status-block--boe {
+    background: var(--color-bloque-boe-bg);
+    border-color: var(--color-bloque-boe-border);
+  }
+  .status-block--boe .status-block__badge {
+    background: var(--color-bloque-boe);
+    color: #fff;
+  }
+
+  .status-block--envigor {
+    background: var(--color-bloque-envigor-bg);
+    border-color: var(--color-bloque-envigor-border);
+  }
+  .status-block--envigor .status-block__badge {
+    background: var(--color-bloque-envigor);
+    color: #fff;
+  }
+
+  .status-block--enpractica {
+    background: var(--color-bloque-enpractica-bg);
+    border-color: var(--color-bloque-enpractica-border);
+  }
+  .status-block--enpractica .status-block__badge {
+    background: var(--color-bloque-enpractica);
+    color: #fff;
+  }
+
+  .status-block--rumor {
+    background: var(--color-bloque-rumor-bg);
+    border-color: var(--color-bloque-rumor-border);
+  }
+  .status-block--rumor .status-block__badge {
+    background: var(--color-bloque-rumor);
+    color: #fff;
+  }
+</style>

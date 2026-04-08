@@ -1,0 +1,14 @@
+---
+import StatusBlock from './_StatusBlock.astro';
+
+interface Props {
+  desde?: string;
+  ref?: string;
+}
+
+const { desde, ref } = Astro.props;
+---
+
+<StatusBlock variant="envigor" label="En vigor" desde={desde} ref={ref}>
+  <slot />
+</StatusBlock>

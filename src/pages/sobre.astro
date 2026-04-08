@@ -1,0 +1,66 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Sobre Nextranjería' },
+];
+---
+
+<ListingLayout
+  title="Sobre Nextranjería"
+  description="Quiénes somos, qué pretendemos y qué no es este proyecto."
+  crumbs={crumbs}
+>
+  <div class="prose-legal">
+    <p>
+      <strong>Nextranjería</strong> es un sitio informativo sobre extranjería,
+      inmigración y nacionalidad en España. Su misión es ofrecer información
+      clara, rigurosa y accesible a cualquier persona —migrante, familiar,
+      profesional o simplemente interesado— que necesite entender sus
+      derechos, opciones y los pasos concretos de cada proceso.
+    </p>
+
+    <h2>Lo que somos</h2>
+    <ul>
+      <li>Un proyecto sin ánimo de lucro, sin publicidad ni servicios de pago.</li>
+      <li>Información ciudadana con rigor normativo y lenguaje llano.</li>
+      <li>Una referencia fiable frente a la desinformación que circula sobre
+        estos temas.</li>
+    </ul>
+
+    <h2>Lo que NO somos</h2>
+    <ul>
+      <li>No somos un despacho de abogados ni ofrecemos asesoramiento legal
+        individualizado.</li>
+      <li>No somos un medio de comunicación ni perseguimos la noticia.</li>
+      <li>No tenemos modelo de negocio. No hay publicidad, afiliación ni
+        servicios de pago.</li>
+      <li>No somos un foro de opinión política sobre inmigración.</li>
+    </ul>
+
+    <h2>Nuestros principios editoriales</h2>
+    <ol>
+      <li><strong>Claridad ante todo.</strong> Lenguaje comprensible sin
+        sacrificar precisión.</li>
+      <li><strong>Rigor normativo.</strong> Toda afirmación se apoya en
+        normativa vigente citada expresamente. Solo la norma publicada en
+        el BOE es marco aplicable.</li>
+      <li><strong>Sin bulos ni atajos.</strong> No reproducimos rumores,
+        interpretaciones no contrastadas ni "trucos".</li>
+      <li><strong>Visión acogedora, no militante.</strong> Creemos que la
+        inmigración es un fenómeno positivo y natural, y lo expresamos
+        desde los datos y el tono.</li>
+      <li><strong>Transparencia temporal.</strong> Cada contenido lleva fecha
+        de última revisión y referencia normativa visibles.</li>
+      <li><strong>Accesibilidad.</strong> Textos pensados para personas cuyo
+        español puede no ser nativo, estructura predecible y navegación
+        intuitiva.</li>
+    </ol>
+
+    <p>
+      Si quieres saber más sobre cómo elaboramos el contenido, consulta
+      la página de <a href="/metodologia/">metodología y fuentes</a>.
+    </p>
+  </div>
+</ListingLayout>

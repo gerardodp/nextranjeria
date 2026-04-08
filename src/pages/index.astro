@@ -1,0 +1,154 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Card from '@components/ui/Card.astro';
+import Button from '@components/ui/Button.astro';
+import Alert from '@components/ui/Alert.astro';
+---
+
+<BaseLayout
+  title="Nextranjería — Extranjería, inmigración y nacionalidad en España"
+  description="Información clara, rigurosa y accesible sobre extranjería, inmigración y nacionalidad en España. Sin asesoramiento jurídico individualizado."
+>
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__eyebrow">Información ciudadana · abril 2026</div>
+      <h1 class="hero__title">
+        Entiende tus derechos y opciones en <span>extranjería</span>,
+        <span>inmigración</span> y <span>nacionalidad</span>
+      </h1>
+      <p class="hero__subtitle">
+        Un sitio informativo, sin publicidad ni servicios de pago, que explica
+        cómo funcionan los trámites de extranjería en España con rigor normativo
+        y lenguaje llano.
+      </p>
+      <div class="hero__actions">
+        <Button href="/regularizacion-2026/" variant="primary">
+          Regularización 2026 — toda la información
+        </Button>
+        <Button href="/guias/" variant="secondary">
+          Ver guías por situación
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured">
+    <div class="featured__inner">
+      <Alert variant="warning" title="Regularización extraordinaria 2026">
+        La medida fue anunciada por el Consejo de Ministros. Hasta que la norma
+        se publique en BOE, ninguna solicitud es formalmente válida. Mientras
+        tanto, hay cosas concretas que puedes preparar ya.
+        <p style="margin: 0.5rem 0 0 0;">
+          <a href="/regularizacion-2026/como-prepararse/">Cómo prepararse →</a>
+        </p>
+      </Alert>
+
+      <h2 class="featured__title">Empieza por aquí</h2>
+      <div class="featured__grid">
+        <Card
+          href="/regularizacion-2026/"
+          eyebrow="Hub prioritario"
+          title="Regularización extraordinaria 2026"
+          description="Qué se sabe, qué no, y qué puedes preparar mientras no se publica la norma."
+        />
+        <Card
+          href="/autorizaciones/arraigo-social/"
+          eyebrow="Autorización"
+          title="Arraigo social"
+          description="La vía más común para regularizar la situación en España por permanencia prolongada."
+        />
+        <Card
+          href="/tramites/empadronamiento/"
+          eyebrow="Trámite clave"
+          title="Empadronamiento"
+          description="Pieza transversal para casi cualquier trámite. Entiende por qué es tan importante hacerlo cuanto antes."
+        />
+        <Card
+          href="/normativa/"
+          eyebrow="Marco legal"
+          title="Normativa vigente"
+          description="Fichas de las leyes y reglamentos aplicables, con enlaces al BOE."
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 3.5rem 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    background: linear-gradient(
+      180deg,
+      var(--color-brand-50) 0%,
+      #fff 100%
+    );
+  }
+  .hero__inner {
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+  .hero__eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.75rem;
+  }
+  .hero__title {
+    font-size: 2.65rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--color-ink);
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.025em;
+    max-width: 38rem;
+  }
+  .hero__title span {
+    color: var(--color-brand-800);
+  }
+  .hero__subtitle {
+    font-size: 1.15rem;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+    max-width: 42rem;
+    margin: 0 0 1.75rem 0;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .featured {
+    padding: 2.5rem 1.5rem 3rem;
+  }
+  .featured__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+  .featured__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem 0;
+    color: var(--color-ink);
+  }
+  .featured__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 2.5rem 1.25rem 2rem;
+    }
+    .hero__title {
+      font-size: 1.95rem;
+    }
+    .hero__subtitle {
+      font-size: 1.02rem;
+    }
+  }
+</style>

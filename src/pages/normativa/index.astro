@@ -1,0 +1,181 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import { getNormativaByStatus, normativaTypeLabel } from '@lib/normativa';
+import { formatDateShort } from '@lib/utils';
+
+const { vigentes, pendientes, historicas, contextoInstitucional } =
+  await getNormativaByStatus();
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Normativa' },
+];
+---
+
+<ListingLayout
+  title="Normativa"
+  description="Fichas de las leyes, reglamentos, órdenes ministeriales e instrucciones aplicables a extranjería, inmigración y nacionalidad en España."
+  crumbs={crumbs}
+>
+  <div class="normativa-warning">
+    <strong>Recordatorio metodológico:</strong> solo las normas publicadas en el
+    BOE son vinculantes. Los anuncios, notas de prensa y borradores nunca lo son.
+  </div>
+
+  {vigentes.length > 0 && (
+    <section class="normativa-section">
+      <h2>En vigor</h2>
+      <ul class="normativa-list">
+        {vigentes.map((entry) => (
+          <li>
+            <a href={`/normativa/${entry.id}/`}>
+              <div class="normativa-list__type">
+                {normativaTypeLabel(entry.data.type)}
+              </div>
+              <div class="normativa-list__title">{entry.data.shortTitle}</div>
+              <div class="normativa-list__subject">{entry.data.subject}</div>
+              {entry.data.publishedDate && (
+                <div class="normativa-list__date">
+                  Publicado: {formatDateShort(entry.data.publishedDate)}
+                </div>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {pendientes.length > 0 && (
+    <section class="normativa-section">
+      <h2>Pendientes</h2>
+      <ul class="normativa-list">
+        {pendientes.map((entry) => (
+          <li>
+            <a href={`/normativa/${entry.id}/`}>
+              <div class="normativa-list__type">
+                {normativaTypeLabel(entry.data.type)}
+              </div>
+              <div class="normativa-list__title">{entry.data.shortTitle}</div>
+              <div class="normativa-list__subject">{entry.data.subject}</div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {historicas.length > 0 && (
+    <section class="normativa-section">
+      <h2>Históricas o modificadas</h2>
+      <ul class="normativa-list">
+        {historicas.map((entry) => (
+          <li>
+            <a href={`/normativa/${entry.id}/`}>
+              <div class="normativa-list__type">
+                {normativaTypeLabel(entry.data.type)}
+              </div>
+              <div class="normativa-list__title">{entry.data.shortTitle}</div>
+              <div class="normativa-list__subject">{entry.data.subject}</div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {contextoInstitucional.length > 0 && (
+    <section class="normativa-section">
+      <h2>Contexto institucional (sin valor normativo)</h2>
+      <p class="normativa-section__note">
+        Documentos explicativos del Gobierno, preguntas y respuestas
+        institucionales, notas de prensa. Útiles para entender la orientación
+        política y administrativa, pero no son fuente vinculante por sí mismos.
+      </p>
+      <ul class="normativa-list">
+        {contextoInstitucional.map((entry) => (
+          <li>
+            <a href={`/normativa/${entry.id}/`}>
+              <div class="normativa-list__type">
+                {normativaTypeLabel(entry.data.type)}
+              </div>
+              <div class="normativa-list__title">{entry.data.shortTitle}</div>
+              <div class="normativa-list__subject">{entry.data.subject}</div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</ListingLayout>
+
+<style>
+  .normativa-warning {
+    background: var(--color-bloque-borrador-bg);
+    border-left: 3px solid var(--color-bloque-borrador);
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 2rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.95rem;
+  }
+  .normativa-section {
+    margin-bottom: 2.5rem;
+  }
+  .normativa-section h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 0.85rem 0;
+    color: var(--color-ink);
+  }
+  .normativa-section__note {
+    font-size: 0.9rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 1rem 0;
+    max-width: 52rem;
+  }
+  .normativa-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .normativa-list li a {
+    display: block;
+    padding: 1rem 1.2rem;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .normativa-list li a:hover {
+    border-color: var(--color-brand-600);
+    background: var(--color-brand-50);
+  }
+  .normativa-list__type {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.2rem;
+  }
+  .normativa-list__title {
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.35;
+    margin-bottom: 0.25rem;
+  }
+  .normativa-list__subject {
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+    line-height: 1.45;
+  }
+  .normativa-list__date {
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin-top: 0.4rem;
+  }
+</style>

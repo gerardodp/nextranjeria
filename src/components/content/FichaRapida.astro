@@ -1,0 +1,133 @@
+---
+/**
+ * <FichaRapida /> auto-inyecta los datos del frontmatter de la página actual.
+ * También acepta props para casos especiales.
+ *
+ * El layout pasa el objeto `fichaRapida` del frontmatter a través de
+ * Astro.props cuando inyecta los mdxComponents, así que dentro de un
+ * MDX `<FichaRapida />` sin props muestra automáticamente la ficha del
+ * frontmatter si está disponible.
+ */
+interface Props {
+  normativa?: string;
+  quien?: string;
+  plazo?: string;
+  coste?: string;
+  ultimaActualizacion?: string;
+}
+
+// Los datos pueden venir de props explícitas o del frontmatter,
+// que el layout pone en Astro.locals.fichaRapida.
+const localsAny = Astro.locals as unknown as {
+  fichaRapida?: {
+    normativa?: string;
+    quien?: string;
+    plazo?: string;
+    coste?: string;
+  };
+  lastReviewed?: Date;
+};
+
+const normativa = Astro.props.normativa ?? localsAny.fichaRapida?.normativa;
+const quien = Astro.props.quien ?? localsAny.fichaRapida?.quien;
+const plazo = Astro.props.plazo ?? localsAny.fichaRapida?.plazo;
+const coste = Astro.props.coste ?? localsAny.fichaRapida?.coste;
+
+const lastReviewed = localsAny.lastReviewed;
+const ultimaActualizacion =
+  Astro.props.ultimaActualizacion ??
+  (lastReviewed instanceof Date
+    ? lastReviewed.toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      })
+    : undefined);
+
+const hasContent = normativa || quien || plazo || coste;
+---
+
+{hasContent && (
+  <section class="ficha-rapida" aria-label="Ficha rápida">
+    <h2 class="ficha-rapida__title">Ficha rápida</h2>
+    <dl class="ficha-rapida__list">
+      {normativa && (
+        <div class="ficha-rapida__row">
+          <dt>Normativa aplicable</dt>
+          <dd>{normativa}</dd>
+        </div>
+      )}
+      {quien && (
+        <div class="ficha-rapida__row">
+          <dt>Quién puede solicitarlo</dt>
+          <dd>{quien}</dd>
+        </div>
+      )}
+      {plazo && (
+        <div class="ficha-rapida__row">
+          <dt>Plazo de resolución</dt>
+          <dd>{plazo}</dd>
+        </div>
+      )}
+      {coste && (
+        <div class="ficha-rapida__row">
+          <dt>Coste (tasas)</dt>
+          <dd>{coste}</dd>
+        </div>
+      )}
+      {ultimaActualizacion && (
+        <div class="ficha-rapida__row">
+          <dt>Última revisión</dt>
+          <dd>{ultimaActualizacion}</dd>
+        </div>
+      )}
+    </dl>
+  </section>
+)}
+
+<style>
+  .ficha-rapida {
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1.25rem 1.4rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .ficha-rapida__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brand-800);
+    margin: 0 0 0.85rem 0;
+  }
+  .ficha-rapida__list {
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .ficha-rapida__row {
+    display: grid;
+    grid-template-columns: minmax(160px, 30%) 1fr;
+    gap: 0.5rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .ficha-rapida__row dt {
+    font-weight: 600;
+    color: var(--color-ink-soft);
+  }
+  .ficha-rapida__row dd {
+    margin: 0;
+    color: var(--color-ink);
+  }
+  @media (max-width: 560px) {
+    .ficha-rapida__row {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+    .ficha-rapida__row dt {
+      font-size: 0.82rem;
+    }
+  }
+</style>

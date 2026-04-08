@@ -1,0 +1,59 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  crumbs: { label: string; href?: string }[];
+}
+
+const { title, description, eyebrow, crumbs } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="listing-layout">
+    <div class="listing-layout__inner">
+      <Breadcrumbs items={crumbs} />
+      <header class="listing-layout__header">
+        {eyebrow && <div class="listing-layout__eyebrow">{eyebrow}</div>}
+        <h1 class="listing-layout__title">{title}</h1>
+        <p class="listing-layout__subtitle">{description}</p>
+      </header>
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .listing-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .listing-layout__inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+  .listing-layout__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-brand-700);
+    margin-bottom: 0.5rem;
+  }
+  .listing-layout__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.65rem 0;
+    letter-spacing: -0.015em;
+  }
+  .listing-layout__subtitle {
+    font-size: 1.1rem;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+    margin: 0 0 2rem 0;
+    max-width: 52rem;
+  }
+</style>

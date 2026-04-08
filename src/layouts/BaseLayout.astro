@@ -1,0 +1,69 @@
+---
+import '@/styles/global.css';
+import SiteHeader from '@components/layout/SiteHeader.astro';
+import SiteFooter from '@components/layout/SiteFooter.astro';
+import SeoHead from '@components/seo/SeoHead.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  ogImage?: string;
+  jsonLd?: unknown;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  noindex,
+  ogImage,
+  jsonLd,
+  bodyClass,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      noindex={noindex}
+      ogImage={ogImage}
+      jsonLd={jsonLd}
+    />
+  </head>
+  <body class={bodyClass}>
+    <a href="#main" class="skip-link">Saltar al contenido</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <style is:global>
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0.5rem;
+        background: var(--color-brand-900);
+        color: #fff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0 0 4px 4px;
+        z-index: 100;
+        text-decoration: none;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+    </style>
+  </body>
+</html>

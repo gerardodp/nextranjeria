@@ -1,0 +1,21 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ContentLayout from '@layouts/ContentLayout.astro';
+import { entryIdToSlug } from '@lib/utils';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages
+    .filter(
+      (p: CollectionEntry<'pages'>) => p.data.hub === 'regularizacion-2026',
+    )
+    .map((page: CollectionEntry<'pages'>) => ({
+      params: { slug: entryIdToSlug(page.id) },
+      props: { entry: page },
+    }));
+}
+
+const { entry } = Astro.props;
+---
+
+<ContentLayout entry={entry} />

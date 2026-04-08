@@ -1,0 +1,13 @@
+---
+import HubLayout from '@layouts/HubLayout.astro';
+import { getHubPages } from '@lib/content';
+
+const pages = await getHubPages('regularizacion-2026');
+---
+
+<HubLayout
+  title="Regularización extraordinaria 2026"
+  description="Toda la información verificada sobre la medida extraordinaria: qué se sabe, qué falta por saber, qué puedes preparar mientras no se publica la norma y los bulos más habituales."
+  hubId="regularizacion-2026"
+  pages={pages}
+/>

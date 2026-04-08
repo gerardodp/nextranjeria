@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: URL | string;
+  noindex?: boolean;
+  ogImage?: string;
+  jsonLd?: unknown;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  noindex = false,
+  ogImage = '/og-default.svg',
+  jsonLd,
+} = Astro.props;
+
+const canonical = canonicalUrl ? new URL(canonicalUrl, Astro.site).toString() : new URL(Astro.url.pathname, Astro.site).toString();
+const siteName = 'Nextranjería';
+const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+<meta property="og:locale" content="es_ES" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={new URL(ogImage, Astro.site).toString()} />
+
+{jsonLd && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+)}

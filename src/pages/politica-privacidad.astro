@@ -1,0 +1,63 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Política de privacidad' },
+];
+---
+
+<ListingLayout
+  title="Política de privacidad"
+  description="Qué datos recogemos, para qué y cómo. Versión breve: prácticamente ninguno."
+  crumbs={crumbs}
+>
+  <div class="prose-legal">
+    <h2>Versión corta</h2>
+    <p>
+      Nextranjería es un sitio estático sin formularios, sin cuentas de
+      usuario y sin comentarios. <strong>No recogemos datos personales
+      directamente de quienes navegan por el sitio.</strong>
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      No utilizamos cookies propias con fines de seguimiento. Si el sitio
+      usa cookies técnicas estrictamente necesarias (por ejemplo, para
+      recordar una preferencia básica), no requieren consentimiento según
+      la normativa vigente.
+    </p>
+
+    <h2>Analítica</h2>
+    <p>
+      Para entender cómo se usa el sitio y priorizar el contenido más
+      útil, podemos utilizar herramientas de analítica que respeten la
+      privacidad (métricas agregadas, sin huella digital individual). Si
+      utilizamos Google Analytics, Vercel Analytics u otra herramienta
+      similar, se actualizará esta página para informarlo con detalle.
+    </p>
+
+    <h2>Formulario de contacto</h2>
+    <p>
+      Si en el futuro habilitamos un formulario de contacto, los datos
+      que nos envíes se usarán exclusivamente para responder a tu
+      mensaje. No se compartirán con terceros ni se utilizarán para
+      ningún fin distinto.
+    </p>
+
+    <h2>Tus derechos</h2>
+    <p>
+      Puedes ejercer los derechos de acceso, rectificación, supresión,
+      oposición, limitación y portabilidad previstos en el RGPD y en la
+      LOPDGDD. Para hacerlo, escríbenos a través de la página de
+      <a href="/contacto/">contacto</a>.
+    </p>
+
+    <h2>Actualización de esta política</h2>
+    <p>
+      Esta política puede actualizarse si el proyecto incorpora nuevas
+      funcionalidades que afecten al tratamiento de datos. Los cambios
+      se publicarán aquí con la fecha correspondiente.
+    </p>
+  </div>
+</ListingLayout>

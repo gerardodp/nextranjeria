@@ -1,0 +1,256 @@
+@import 'tailwindcss';
+
+/* -----------------------------------------------------------------------------
+ * Fuentes self-hosted — Inter variable (latin + latin-ext)
+ * Los archivos .woff2 viven en /public/fonts/
+ * -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* -----------------------------------------------------------------------------
+ * Tokens — paleta mínima Fase 0 + estados normativos
+ * -------------------------------------------------------------------------- */
+
+@theme {
+  /* Tipografía */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;
+
+  /* Paleta neutra con acento azul grisáceo formal */
+  --color-brand-50: #f4f7fb;
+  --color-brand-100: #e6ecf4;
+  --color-brand-200: #c8d6e6;
+  --color-brand-300: #9db3ce;
+  --color-brand-400: #6b88ae;
+  --color-brand-500: #466590;
+  --color-brand-600: #345078;
+  --color-brand-700: #2a4062;
+  --color-brand-800: #1e3a5f;
+  --color-brand-900: #16283f;
+
+  /* Neutros */
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-ink-muted: #64748b;
+  --color-paper: #ffffff;
+  --color-paper-soft: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* Estados normativos — cada estado tiene un par fondo/texto legible */
+  --color-status-vigente: #0f7d3f;
+  --color-status-vigente-bg: #e8f5ec;
+  --color-status-vigente-border: #a7d8b6;
+
+  --color-status-pendiente: #9a6a00;
+  --color-status-pendiente-bg: #fef7e0;
+  --color-status-pendiente-border: #f3dc8a;
+
+  --color-status-transitorio: #b7410e;
+  --color-status-transitorio-bg: #fdeee3;
+  --color-status-transitorio-border: #f5c39a;
+
+  --color-status-historico: #475569;
+  --color-status-historico-bg: #f1f5f9;
+  --color-status-historico-border: #cbd5e1;
+
+  /* Estados MDX de afirmaciones puntuales */
+  --color-bloque-anunciado: #1e40af;
+  --color-bloque-anunciado-bg: #eff6ff;
+  --color-bloque-anunciado-border: #bfdbfe;
+
+  --color-bloque-borrador: #854d0e;
+  --color-bloque-borrador-bg: #fefce8;
+  --color-bloque-borrador-border: #fde68a;
+
+  --color-bloque-boe: #065f46;
+  --color-bloque-boe-bg: #ecfdf5;
+  --color-bloque-boe-border: #a7f3d0;
+
+  --color-bloque-envigor: #047857;
+  --color-bloque-envigor-bg: #d1fae5;
+  --color-bloque-envigor-border: #6ee7b7;
+
+  --color-bloque-enpractica: #334155;
+  --color-bloque-enpractica-bg: #f1f5f9;
+  --color-bloque-enpractica-border: #cbd5e1;
+
+  --color-bloque-rumor: #7f1d1d;
+  --color-bloque-rumor-bg: #fef2f2;
+  --color-bloque-rumor-border: #fecaca;
+
+  /* Bloques editoriales */
+  --color-bloque-ojo: #991b1b;
+  --color-bloque-ojo-bg: #fef2f2;
+  --color-bloque-ojo-border: #fecaca;
+
+  --color-bloque-ejemplo: #3730a3;
+  --color-bloque-ejemplo-bg: #eef2ff;
+  --color-bloque-ejemplo-border: #c7d2fe;
+}
+
+/* -----------------------------------------------------------------------------
+ * Reset mínimo y base
+ * -------------------------------------------------------------------------- */
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+ * .prose-legal — estilo editorial para contenido MDX sin depender de
+ * @tailwindcss/typography. Control granular por clase descendiente.
+ * -------------------------------------------------------------------------- */
+
+.prose-legal {
+  color: var(--color-ink);
+  line-height: 1.7;
+  font-size: 1.0625rem;
+  max-width: 68ch;
+}
+
+.prose-legal h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-ink);
+  scroll-margin-top: 5rem;
+}
+
+.prose-legal h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-ink);
+  scroll-margin-top: 5rem;
+}
+
+.prose-legal h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+}
+
+.prose-legal p {
+  margin-top: 0;
+  margin-bottom: 1.1em;
+}
+
+.prose-legal a {
+  color: var(--color-brand-700);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose-legal a:hover {
+  color: var(--color-brand-900);
+  text-decoration-thickness: 2px;
+}
+
+.prose-legal ul,
+.prose-legal ol {
+  margin-top: 0.25rem;
+  margin-bottom: 1.1em;
+  padding-left: 1.5rem;
+}
+
+.prose-legal ul > li {
+  list-style: disc;
+  margin-bottom: 0.4rem;
+}
+
+.prose-legal ol > li {
+  list-style: decimal;
+  margin-bottom: 0.4rem;
+}
+
+.prose-legal strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose-legal blockquote {
+  border-left: 3px solid var(--color-brand-300);
+  padding-left: 1rem;
+  color: var(--color-ink-soft);
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.prose-legal code {
+  background: var(--color-paper-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  border: 1px solid var(--color-border);
+}
+
+.prose-legal hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+/* -----------------------------------------------------------------------------
+ * Impresión — checklists y pasos deben imprimirse limpios
+ * -------------------------------------------------------------------------- */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    font-size: 11pt;
+    color: #000;
+    background: #fff;
+  }
+  .prose-legal a {
+    color: #000;
+    text-decoration: underline;
+  }
+  .prose-legal a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    color: #444;
+  }
+}

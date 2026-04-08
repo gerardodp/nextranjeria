@@ -1,0 +1,36 @@
+---
+interface Props {
+  titulo?: string;
+}
+const { titulo = 'Ejemplo' } = Astro.props;
+---
+
+<aside class="ejemplo" aria-label={titulo}>
+  <div class="ejemplo__label">{titulo}</div>
+  <div class="ejemplo__body"><slot /></div>
+</aside>
+
+<style>
+  .ejemplo {
+    margin: 1.5rem 0;
+    padding: 0.95rem 1.15rem;
+    background: var(--color-bloque-ejemplo-bg);
+    border-left: 3px solid var(--color-bloque-ejemplo);
+    border-radius: 0 4px 4px 0;
+  }
+  .ejemplo__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-bloque-ejemplo);
+    margin-bottom: 0.4rem;
+  }
+  .ejemplo__body {
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+  .ejemplo__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

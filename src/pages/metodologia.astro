@@ -1,0 +1,96 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Metodología y fuentes' },
+];
+---
+
+<ListingLayout
+  title="Metodología y fuentes"
+  description="Cómo elaboramos el contenido de Nextranjería, qué fuentes utilizamos y cómo distinguimos entre norma aplicable, anuncios y rumores."
+  crumbs={crumbs}
+>
+  <div class="prose-legal">
+    <h2>El principio del BOE</h2>
+    <p>
+      En Nextranjería partimos de un principio irrenunciable: <strong>solo la
+      norma publicada en el Boletín Oficial del Estado es fuente normativa
+      vinculante</strong>. Los anuncios políticos, comparecencias,
+      comunicados de prensa, filtraciones o borradores no son marco
+      aplicable, por muy esperada que esté la medida.
+    </p>
+    <p>
+      Esto no significa que ignoremos los anuncios. Significa que los
+      etiquetamos claramente como lo que son, sin presentarlos como si
+      fueran derecho vigente.
+    </p>
+
+    <h2>Sistema de estados normativos</h2>
+    <p>
+      Cada afirmación de nuestro contenido se marca según su fuente y grado
+      de certidumbre:
+    </p>
+    <ul>
+      <li><strong>En vigor</strong> — norma publicada en BOE y en pleno vigor.</li>
+      <li><strong>Publicado en BOE</strong> — publicado, aunque pendiente de
+        entrada en vigor.</li>
+      <li><strong>Anunciado</strong> — declaraciones oficiales, pero sin
+        publicación formal.</li>
+      <li><strong>Borrador / filtrado</strong> — procedente de borradores
+        conocidos o filtraciones verificadas.</li>
+      <li><strong>Contrastado en la práctica</strong> — criterios observados
+        en oficinas de extranjería, con nota metodológica.</li>
+      <li><strong>Rumor</strong> — circula pero no tiene fuente verificable.
+        Solo lo mencionamos para desmentirlo o matizarlo.</li>
+    </ul>
+
+    <h2>Fuentes primarias</h2>
+    <ul>
+      <li>El <strong>Boletín Oficial del Estado</strong> (BOE) y los
+        boletines autonómicos.</li>
+      <li>Los <strong>textos normativos consolidados</strong> publicados por
+        la propia Agencia Estatal del BOE.</li>
+      <li><strong>Instrucciones</strong> y circulares de la Secretaría de
+        Estado de Migraciones, de la Dirección General de Migraciones y
+        de otros órganos competentes.</li>
+      <li><strong>Jurisprudencia</strong> del Tribunal Supremo, del Tribunal
+        Constitucional y de los Tribunales Superiores de Justicia.</li>
+      <li><strong>Directivas y reglamentos de la Unión Europea</strong>.</li>
+    </ul>
+
+    <h2>Fuentes secundarias</h2>
+    <ul>
+      <li>Informes y documentación de organizaciones especializadas (CEAR,
+        Red Acoge, SJM, Andalucía Acoge, ACCEM, entre otras).</li>
+      <li>Informes del Defensor del Pueblo y de defensorías autonómicas.</li>
+      <li>Comunicados oficiales del Ministerio competente.</li>
+    </ul>
+    <p>
+      Las fuentes secundarias se usan como apoyo interpretativo o
+      estadístico, pero nunca sustituyen a la norma publicada en BOE.
+    </p>
+
+    <h2>Fechas de revisión</h2>
+    <p>
+      Cada página lleva visible la fecha de última revisión. Esta fecha
+      indica cuándo revisamos por última vez que la información sigue
+      siendo correcta según la normativa vigente, no solo cuándo se
+      editó el texto. Si ves una fecha antigua, desconfía y contrasta
+      con el BOE.
+    </p>
+
+    <h2>Actualizaciones y correcciones</h2>
+    <p>
+      Cuando una norma cambia, actualizamos las páginas afectadas.
+      Cuando cometemos un error, lo corregimos de forma visible y
+      dejamos constancia del cambio. Nunca borramos contenido
+      silenciosamente.
+    </p>
+    <p>
+      Si detectas un error, una imprecisión o un dato desfasado, puedes
+      avisarnos a través de la página de <a href="/contacto/">contacto</a>.
+    </p>
+  </div>
+</ListingLayout>

@@ -1,0 +1,97 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
+import FechaRevision from '@components/layout/FechaRevision.astro';
+import StatusPill from '@components/ui/StatusPill.astro';
+import { mdxComponents } from '@/mdx-components';
+
+interface Props {
+  entry: CollectionEntry<'faqs'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Preguntas frecuentes', href: '/faq/' },
+  { label: data.question },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: data.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: data.shortAnswer,
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={data.question}
+  description={data.shortAnswer}
+  noindex={data.noindex}
+  jsonLd={faqJsonLd}
+>
+  <article class="faq-layout">
+    <div class="faq-layout__inner">
+      <Breadcrumbs items={crumbs} />
+      <header class="faq-layout__header">
+        <div class="faq-layout__status">
+          <StatusPill status={data.normativeStatus} />
+        </div>
+        <h1 class="faq-layout__question">{data.question}</h1>
+        <p class="faq-layout__short">{data.shortAnswer}</p>
+      </header>
+
+      <div class="prose-legal">
+        <Content components={mdxComponents} />
+      </div>
+
+      <FechaRevision
+        lastReviewed={data.lastReviewed}
+        updatedDate={data.updatedDate}
+        pubDate={data.pubDate}
+      />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .faq-layout {
+    padding: 2rem 1.5rem 3rem;
+  }
+  .faq-layout__inner {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+  .faq-layout__status {
+    margin-bottom: 0.85rem;
+  }
+  .faq-layout__question {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-ink);
+  }
+  .faq-layout__short {
+    font-size: 1.05rem;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+    padding: 1rem 1.25rem;
+    background: var(--color-paper-soft);
+    border-left: 3px solid var(--color-brand-600);
+    border-radius: 0 4px 4px 0;
+    margin: 1rem 0 2rem;
+  }
+</style>

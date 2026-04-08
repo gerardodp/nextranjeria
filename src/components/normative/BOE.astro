@@ -1,0 +1,14 @@
+---
+import StatusBlock from './_StatusBlock.astro';
+
+interface Props {
+  fecha?: string;
+  ref?: string;
+}
+
+const { fecha, ref } = Astro.props;
+---
+
+<StatusBlock variant="boe" label="Publicado en BOE" fecha={fecha} ref={ref}>
+  <slot />
+</StatusBlock>

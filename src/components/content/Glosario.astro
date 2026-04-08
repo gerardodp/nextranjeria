@@ -1,0 +1,37 @@
+---
+/**
+ * <Glosario term="arraigo">arraigo</Glosario>
+ *
+ * Enlaza contextualmente a una entrada del glosario. Usa el atributo
+ * `title` nativo para un tooltip en Fase 0 (sin JS). En Fase 5 se puede
+ * sustituir por un tooltip propio con hovercard.
+ */
+import { getEntry } from 'astro:content';
+
+interface Props {
+  term: string;
+}
+
+const { term } = Astro.props;
+const entry = await getEntry('glossary', term).catch(() => null);
+const href = entry ? `/glosario/${entry.id}/` : `/glosario/${term}/`;
+const tooltip = entry?.data.shortDefinition ?? 'Ver definición en el glosario';
+---
+
+<a class="glosario-link" href={href} title={tooltip}>
+  <slot />
+</a>
+
+<style>
+  .glosario-link {
+    color: inherit;
+    border-bottom: 1px dashed var(--color-brand-500);
+    text-decoration: none;
+    cursor: help;
+  }
+  .glosario-link:hover {
+    color: var(--color-brand-800);
+    border-bottom-color: var(--color-brand-800);
+    border-bottom-style: solid;
+  }
+</style>
