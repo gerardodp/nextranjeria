@@ -5,6 +5,7 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
 import FechaRevision from '@components/layout/FechaRevision.astro';
 import StatusPill from '@components/ui/StatusPill.astro';
 import { mdxComponents } from '@/mdx-components';
+import { buildFaqPageJsonLd } from '@lib/seo';
 
 interface Props {
   entry: CollectionEntry<'faqs'>;
@@ -20,20 +21,10 @@ const crumbs = [
   { label: data.question },
 ];
 
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: data.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: data.shortAnswer,
-      },
-    },
-  ],
-};
+const faqJsonLd = buildFaqPageJsonLd(entry, {
+  site: Astro.site!,
+  pageUrl: Astro.url.pathname,
+});
 ---
 
 <BaseLayout
@@ -50,6 +41,9 @@ const faqJsonLd = {
           <StatusPill status={data.normativeStatus} />
         </div>
         <h1 class="faq-layout__question">{data.question}</h1>
+        {data.author && data.author !== 'Nextranjería' && (
+          <p class="faq-layout__author">Por {data.author}</p>
+        )}
         <p class="faq-layout__short">{data.shortAnswer}</p>
       </header>
 
@@ -83,6 +77,11 @@ const faqJsonLd = {
     line-height: 1.25;
     margin: 0 0 0.75rem 0;
     color: var(--color-ink);
+  }
+  .faq-layout__author {
+    font-size: 0.85rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.75rem 0;
   }
   .faq-layout__short {
     font-size: 1.05rem;

@@ -8,11 +8,22 @@ interface SiteContext {
   pageUrl: string;
 }
 
+const publisher = (site: URL) => ({
+  '@type': 'Organization',
+  name: 'Nextranjería',
+  url: site.toString(),
+});
+
 export function buildArticleJsonLd(
   entry: CollectionEntry<'pages'> | CollectionEntry<'guides'>,
   ctx: SiteContext,
 ): Record<string, unknown> {
   const url = new URL(ctx.pageUrl, ctx.site).toString();
+  const authorName: string = entry.data.author ?? 'Nextranjería';
+  const author =
+    authorName === 'Nextranjería'
+      ? publisher(ctx.site)
+      : { '@type': 'Person', name: authorName };
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -23,16 +34,38 @@ export function buildArticleJsonLd(
     inLanguage: 'es-ES',
     isAccessibleForFree: true,
     mainEntityOfPage: url,
-    author: {
-      '@type': 'Organization',
-      name: 'Nextranjería',
-      url: ctx.site.toString(),
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Nextranjería',
-      url: ctx.site.toString(),
-    },
+    author,
+    publisher: publisher(ctx.site),
+  };
+}
+
+export function buildFaqPageJsonLd(
+  entry: CollectionEntry<'faqs'>,
+  ctx: SiteContext,
+): Record<string, unknown> {
+  const authorName: string = entry.data.author ?? 'Nextranjería';
+  const author =
+    authorName === 'Nextranjería'
+      ? publisher(ctx.site)
+      : { '@type': 'Person', name: authorName };
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    datePublished: entry.data.pubDate.toISOString(),
+    dateModified: (entry.data.updatedDate ?? entry.data.lastReviewed).toISOString(),
+    inLanguage: 'es-ES',
+    author,
+    publisher: publisher(ctx.site),
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: entry.data.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: entry.data.shortAnswer,
+        },
+      },
+    ],
   };
 }
 

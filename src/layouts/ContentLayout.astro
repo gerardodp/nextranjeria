@@ -104,6 +104,9 @@ const jsonLd = [jsonLdArticle, jsonLdBreadcrumb];
         </div>
         <h1 class="content-layout__title">{data.title}</h1>
         <p class="content-layout__subtitle">{data.description}</p>
+        {data.author && data.author !== 'Nextranjería' && (
+          <p class="content-layout__author">Por {data.author}</p>
+        )}
       </header>
 
       <FichaRapida
@@ -164,6 +167,11 @@ const jsonLd = [jsonLdArticle, jsonLdBreadcrumb];
     color: var(--color-ink-soft);
     line-height: 1.5;
     margin: 0;
+  }
+  .content-layout__author {
+    font-size: 0.85rem;
+    color: var(--color-ink-muted);
+    margin: 0.6rem 0 0 0;
   }
   @media (max-width: 640px) {
     .content-layout__title {

@@ -124,6 +124,7 @@ export const normativaStatus = [
 const baseSchema = z.object({
   title: z.string().min(1).max(80),
   description: z.string().min(1).max(160),
+  author: z.string().default('Nextranjería'),
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
   /**
@@ -241,6 +242,7 @@ const glossary = defineCollection({
     shortDefinition: z.string().min(1).max(300),
     longDefinition: z.string().optional(),
     category: z.enum(contentCategories),
+    author: z.string().default('Nextranjería'),
     normativeReferences: z.array(reference('normativa')).default([]),
     relatedTerms: z.array(reference('glossary')).default([]),
     relatedPages: z.array(reference('pages')).default([]),
