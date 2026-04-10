@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 11 de abril de 2026 (Fase 1.3 Guías por situación completada).
+> Última actualización: 11 de abril de 2026 (Fase 1.4 Nacionalidad por residencia completada).
 
 ---
 
@@ -84,11 +84,13 @@
 **Estado Fase 1.3: completada el 11 de abril de 2026.** 4 guías por situación publicadas en `/guias/`, primera vez que se usa la collection `guides` (con `GuideLayout`, `situationProfile` y `estimatedReadTime`). Nueva ruta dinámica `src/pages/guias/[...slug].astro` e index `/guias/` actualizado con listado real. Build de 59 páginas, `astro check` limpio.
 
 ### 1.4 Nacionalidad por residencia
-- [ ] Página índice de vías a la nacionalidad
-- [ ] Nacionalidad por residencia: requisitos generales (10 años)
-- [ ] Plazos reducidos (1, 2 y 5 años)
-- [ ] Exámenes CCSE y DELE A2
-- [ ] Procedimiento paso a paso
+- [x] Página índice de vías a la nacionalidad (`/nacionalidad/vias-nacionalidad/`) — mapa de las 5 formas de adquisición (origen, opción, residencia, carta de naturaleza, posesión de estado) más recuperación. Base legal: arts. 17 a 26 Cc
+- [x] Nacionalidad por residencia: requisitos generales (10 años) — residencia legal, continuada e inmediatamente anterior, buena conducta cívica, suficiente grado de integración, silencio negativo. Base legal: art. 22 Cc
+- [x] Plazos reducidos (1, 2 y 5 años) — desglose completo de los supuestos del art. 22.1 y 22.2 Cc: refugiados, iberoamericanos/Andorra/Filipinas/Guinea Ecuatorial/Portugal/sefardíes, nacidos en España, matrimonio con español, viudos, tutelados, hijos y nietos de originariamente españoles
+- [x] Exámenes CCSE y DELE A2 — formato, convocatorias, exención del DELE para hispanohablantes, validez indefinida, cómo se incorporan al expediente
+- [x] Procedimiento paso a paso — tramitación electrónica, documentación, plazo legal de un año con silencio negativo, jura/promesa en 180 días, inscripción en el Registro Civil
+
+**Estado Fase 1.4: completada el 11 de abril de 2026.** 5 fichas técnicas nuevas en `/nacionalidad/`, apoyadas en el Código Civil arts. 17-28 (único PDF disponible para nacionalidad). Guía por situación "Quiero la nacionalidad española" actualizada para enlazar a las fichas. Build de 64 páginas, `astro check` limpio. El desarrollo reglamentario del procedimiento (RD 1004/2015) y la normativa específica del Instituto Cervantes quedan por incorporar como fichas de normativa cuando se carguen los PDFs en el repo.
 
 ---
 
