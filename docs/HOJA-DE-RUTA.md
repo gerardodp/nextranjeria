@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 11 de abril de 2026 (Fase 1.2 Trámites esenciales transversales completada).
+> Última actualización: 11 de abril de 2026 (Fase 1.3 Guías por situación completada).
 
 ---
 
@@ -76,10 +76,12 @@
 **Estado Fase 1.2: completada el 11 de abril de 2026.** 6 fichas nuevas en `/tramites/`, build de 55 páginas, `astro check` limpio. Las fichas se enlazan entre sí y con el hub de arraigo.
 
 ### 1.3 Guías por situación (las más demandadas)
-- [ ] "Estoy en España sin papeles" → orienta a regularización, arraigo y otras vías
-- [ ] "Quiero traer a mi familia" → reagrupación familiar
-- [ ] "Quiero la nacionalidad española" → vías y plazos
-- [ ] "Tengo permiso y necesito renovar"
+- [x] "Estoy en España sin papeles" → orienta a regularización 2026, las 5 modalidades de arraigo, empadronamiento y antecedentes penales. `situationProfile: sin-papeles`. Tono honesto sobre la incertidumbre del BOE
+- [x] "Quiero traer a mi familia" → mapa de las tres vías (reagrupación familiar RD 1155/2024, régimen comunitario RD 240/2007, arraigo familiar) con criterios para identificar cuál aplica. `situationProfile: familia`
+- [x] "Quiero la nacionalidad española" → vías (residencia, opción, carta de naturaleza, posesión de estado, recuperación) y plazos reducidos. Enlaza a Código Civil arts. 17-26. `situationProfile: recien-llegado`
+- [x] "Tengo permiso y necesito renovar" → plazos de presentación (60 días antes, 90 días después), silencio positivo, checklist documental y salto a larga duración. `situationProfile: trabajador`
+
+**Estado Fase 1.3: completada el 11 de abril de 2026.** 4 guías por situación publicadas en `/guias/`, primera vez que se usa la collection `guides` (con `GuideLayout`, `situationProfile` y `estimatedReadTime`). Nueva ruta dinámica `src/pages/guias/[...slug].astro` e index `/guias/` actualizado con listado real. Build de 59 páginas, `astro check` limpio.
 
 ### 1.4 Nacionalidad por residencia
 - [ ] Página índice de vías a la nacionalidad

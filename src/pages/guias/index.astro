@@ -1,8 +1,14 @@
 ---
 import ListingLayout from '@layouts/ListingLayout.astro';
+import Card from '@components/ui/Card.astro';
 import { getPublishedGuides } from '@lib/content';
+import type { CollectionEntry } from 'astro:content';
 
-const guides = await getPublishedGuides();
+const all = await getPublishedGuides();
+const guides = all.sort(
+  (a: CollectionEntry<'guides'>, b: CollectionEntry<'guides'>) =>
+    a.data.title.localeCompare(b.data.title, 'es'),
+);
 
 const crumbs = [
   { label: 'Inicio', href: '/' },
@@ -15,25 +21,32 @@ const crumbs = [
   description="Guías pensadas desde la situación personal de quien las lee, no desde la terminología jurídica. Entra por tu caso y te llevamos a las páginas técnicas que necesitas."
   crumbs={crumbs}
 >
-  <div class="prose-legal">
-    {guides.length === 0 ? (
-      <div class="empty">
-        <p>
-          Estamos elaborando las guías por situación. Mientras tanto, puedes
-          entrar directamente por alguna de las páginas técnicas:
-        </p>
-        <ul>
-          <li><a href="/regularizacion-2026/">Regularización extraordinaria 2026</a></li>
-          <li><a href="/autorizaciones/arraigo-social/">Arraigo social</a></li>
-          <li><a href="/tramites/empadronamiento/">Empadronamiento</a></li>
-          <li><a href="/normativa/">Normativa vigente</a></li>
-          <li><a href="/glosario/">Glosario de términos</a></li>
-        </ul>
-      </div>
-    ) : (
-      <p>Aquí se listarán las guías cuando haya contenido publicado.</p>
-    )}
-  </div>
+  {guides.length === 0 ? (
+    <div class="empty">
+      <p>
+        Estamos elaborando las guías por situación. Mientras tanto, puedes
+        entrar directamente por alguna de las páginas técnicas:
+      </p>
+      <ul>
+        <li><a href="/regularizacion-2026/">Regularización extraordinaria 2026</a></li>
+        <li><a href="/autorizaciones/arraigo-social/">Arraigo social</a></li>
+        <li><a href="/tramites/empadronamiento/">Empadronamiento</a></li>
+        <li><a href="/normativa/">Normativa vigente</a></li>
+        <li><a href="/glosario/">Glosario de términos</a></li>
+      </ul>
+    </div>
+  ) : (
+    <div class="grid">
+      {guides.map((guide: CollectionEntry<'guides'>) => (
+        <Card
+          href={`/guias/${guide.id}/`}
+          title={guide.data.title}
+          description={guide.data.description}
+          eyebrow={`${guide.data.estimatedReadTime} min de lectura`}
+        />
+      ))}
+    </div>
+  )}
 </ListingLayout>
 
 <style>
@@ -45,5 +58,10 @@ const crumbs = [
   }
   .empty ul {
     margin-bottom: 0;
+  }
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 </style>
