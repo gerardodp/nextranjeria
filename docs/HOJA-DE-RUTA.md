@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 10 de abril de 2026 (Fase 1.1 Arraigo completada).
+> Última actualización: 11 de abril de 2026 (Fase 1.2 Trámites esenciales transversales completada).
 
 ---
 
@@ -66,12 +66,14 @@
 - [x] Página comparativa: "¿Qué arraigo me corresponde?"
 
 ### 1.2 Trámites esenciales transversales
-- [ ] NIE (qué es, cómo se obtiene)
-- [ ] TIE (cuándo, cómo, dónde)
-- [ ] Cita previa en extranjería (cómo conseguirla, alternativas)
-- [ ] Antecedentes penales (de origen y de España)
-- [ ] Empadronamiento (refinamiento de la ficha de Fase 0)
-- [ ] Certificado digital y Cl@ve
+- [x] NIE (qué es, cómo se obtiene) — ficha técnica con los tres casos (de oficio, a instancia del interesado en España y desde el exterior). Base legal: art. 205 RD 1155/2024
+- [x] TIE (cuándo, cómo, dónde) — ficha técnica con el trámite completo, renovación y duplicado. Base legal: art. 209 RD 1155/2024
+- [x] Cita previa en extranjería — mecanismos, alternativas legales cuando no hay citas (registro general ex art. 16.4 Ley 39/2015, presentación electrónica, escrito denunciando imposibilidad material)
+- [x] Antecedentes penales (de origen y de España) — apostilla de La Haya, legalización diplomática, traducción jurada, validez de 6 meses, Registro Central de Penados español
+- [x] Empadronamiento (refinamiento de la ficha de Fase 0) — ampliado con sección "Trámites para los que necesitarás el empadronamiento" y cross-links a NIE, TIE, antecedentes y certificado digital
+- [x] Certificado digital y Cl@ve — FNMT software (ceres.fnmt.es) + Cl@ve PIN/permanente, requisitos para personas extranjeras (NIE en vigor), aviso de webs falsas
+
+**Estado Fase 1.2: completada el 11 de abril de 2026.** 6 fichas nuevas en `/tramites/`, build de 55 páginas, `astro check` limpio. Las fichas se enlazan entre sí y con el hub de arraigo.
 
 ### 1.3 Guías por situación (las más demandadas)
 - [ ] "Estoy en España sin papeles" → orienta a regularización, arraigo y otras vías
