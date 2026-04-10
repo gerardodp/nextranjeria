@@ -1,8 +1,12 @@
 ---
 import HubLayout from '@layouts/HubLayout.astro';
-import { getHubPages } from '@lib/content';
+import { getHubPages, getPublishedFaqs } from '@lib/content';
 
 const pages = await getHubPages('regularizacion-2026');
+const allFaqs = await getPublishedFaqs();
+const faqs = allFaqs
+  .filter((faq) => faq.data.hub === 'regularizacion-2026')
+  .sort((a, b) => a.data.pubDate.getTime() - b.data.pubDate.getTime());
 ---
 
 <HubLayout
@@ -10,4 +14,5 @@ const pages = await getHubPages('regularizacion-2026');
   description="Toda la información verificada sobre la medida extraordinaria: qué se sabe, qué falta por saber, qué puedes preparar mientras no se publica la norma y los bulos más habituales."
   hubId="regularizacion-2026"
   pages={pages}
+  faqs={faqs}
 />

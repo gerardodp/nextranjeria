@@ -11,9 +11,10 @@ interface Props {
   description: string;
   hubId: string;
   pages: CollectionEntry<'pages'>[];
+  faqs?: CollectionEntry<'faqs'>[];
 }
 
-const { title, description, hubId, pages } = Astro.props;
+const { title, description, hubId, pages, faqs = [] } = Astro.props;
 
 const crumbs = [
   { label: 'Inicio', href: '/' },
@@ -45,6 +46,31 @@ const crumbs = [
           </Card>
         ))}
       </section>
+
+      {faqs.length > 0 && (
+        <section class="hub-layout__faqs">
+          <header class="hub-layout__faqs-header">
+            <h2 class="hub-layout__faqs-title">Preguntas frecuentes</h2>
+            <p class="hub-layout__faqs-lead">
+              Respuestas breves y honestas a las dudas más habituales sobre
+              la medida. Cuando no hay certeza, lo decimos.
+            </p>
+          </header>
+          <ul class="hub-layout__faqs-list">
+            {faqs.map((faq) => (
+              <li class="hub-layout__faqs-item">
+                <a class="hub-layout__faqs-link" href={`/faq/${faq.id}/`}>
+                  <span class="hub-layout__faqs-question">{faq.data.question}</span>
+                  <span class="hub-layout__faqs-short">{faq.data.shortAnswer}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a class="hub-layout__faqs-all" href="/faq/">
+            Ver todas las preguntas frecuentes →
+          </a>
+        </section>
+      )}
     </div>
   </article>
 </BaseLayout>
@@ -86,5 +112,75 @@ const crumbs = [
   }
   .hub-layout__card-meta {
     margin-top: 0.75rem;
+  }
+  .hub-layout__faqs {
+    margin-top: 3rem;
+  }
+  .hub-layout__faqs-header {
+    margin-bottom: 1.25rem;
+  }
+  .hub-layout__faqs-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-brand-800);
+    margin: 0 0 0.5rem 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-brand-200);
+  }
+  .hub-layout__faqs-lead {
+    margin: 0;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+    font-size: 0.98rem;
+    max-width: 46rem;
+  }
+  .hub-layout__faqs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .hub-layout__faqs-item {
+    margin: 0;
+  }
+  .hub-layout__faqs-link {
+    display: block;
+    padding: 0.9rem 1.1rem;
+    background: var(--color-paper-soft);
+    border-left: 3px solid var(--color-brand-500);
+    border-radius: 0 4px 4px 0;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .hub-layout__faqs-link:hover {
+    background: var(--color-paper);
+    border-left-color: var(--color-brand-700);
+  }
+  .hub-layout__faqs-question {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.35;
+    margin-bottom: 0.3rem;
+  }
+  .hub-layout__faqs-short {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+  }
+  .hub-layout__faqs-all {
+    display: inline-block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-brand-700);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--color-brand-500);
+  }
+  .hub-layout__faqs-all:hover {
+    border-bottom-style: solid;
   }
 </style>

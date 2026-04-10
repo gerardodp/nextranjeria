@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FaqLayout from '@layouts/FaqLayout.astro';
+import { getPublishedFaqs } from '@lib/content';
+
+export async function getStaticPaths() {
+  const faqs = await getPublishedFaqs();
+  return faqs.map((entry: CollectionEntry<'faqs'>) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<FaqLayout entry={entry} />

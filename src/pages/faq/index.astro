@@ -1,0 +1,155 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ListingLayout from '@layouts/ListingLayout.astro';
+import StatusPill from '@components/ui/StatusPill.astro';
+import { getPublishedFaqs } from '@lib/content';
+
+type FaqEntry = CollectionEntry<'faqs'>;
+
+const faqs = await getPublishedFaqs();
+
+const hubLabels: Record<string, string> = {
+  'regularizacion-2026': 'Regularización extraordinaria 2026',
+};
+
+const categoryLabels: Record<string, string> = {
+  autorizaciones: 'Autorizaciones de residencia',
+  trabajo: 'Trabajo',
+  estudios: 'Estudios',
+  'ciudadanos-ue': 'Ciudadanos UE',
+  'proteccion-internacional': 'Protección internacional',
+  nacionalidad: 'Nacionalidad',
+  tramites: 'Trámites',
+  normativa: 'Normativa',
+  actualidad: 'Actualidad',
+};
+
+// Agrupar: primero por hub (si tiene), si no por category.
+const groupsMap = new Map<string, { label: string; entries: FaqEntry[] }>();
+
+for (const faq of faqs) {
+  const key = faq.data.hub ?? `cat:${faq.data.category}`;
+  const label = faq.data.hub
+    ? (hubLabels[faq.data.hub] ?? faq.data.hub)
+    : (categoryLabels[faq.data.category] ?? faq.data.category);
+  if (!groupsMap.has(key)) groupsMap.set(key, { label, entries: [] });
+  groupsMap.get(key)!.entries.push(faq);
+}
+
+// Ordenar grupos: los hubs primero, luego categorías alfabéticas.
+const groups = [...groupsMap.entries()]
+  .sort(([a], [b]) => {
+    const aHub = !a.startsWith('cat:');
+    const bHub = !b.startsWith('cat:');
+    if (aHub && !bHub) return -1;
+    if (!aHub && bHub) return 1;
+    return a.localeCompare(b);
+  })
+  .map(([, group]) => ({
+    ...group,
+    entries: group.entries.sort((a, b) =>
+      a.data.question.localeCompare(b.data.question, 'es'),
+    ),
+  }));
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Preguntas frecuentes' },
+];
+---
+
+<ListingLayout
+  title="Preguntas frecuentes"
+  description="Respuestas breves y honestas a las dudas más habituales sobre extranjería, inmigración y nacionalidad en España. Cuando la norma aplicable aún no existe, lo decimos."
+  crumbs={crumbs}
+>
+  {groups.length === 0 ? (
+    <p class="faq-empty">Aún no hay preguntas publicadas.</p>
+  ) : (
+    groups.map((group) => (
+      <section class="faq-group">
+        <h2 class="faq-group__title">{group.label}</h2>
+        <ul class="faq-group__list">
+          {group.entries.map((faq) => (
+            <li class="faq-group__item">
+              <a class="faq-group__link" href={`/faq/${faq.id}/`}>
+                <div class="faq-group__head">
+                  <span class="faq-group__question">{faq.data.question}</span>
+                  <StatusPill status={faq.data.normativeStatus} />
+                </div>
+                <p class="faq-group__short">{faq.data.shortAnswer}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  )}
+</ListingLayout>
+
+<style>
+  .faq-empty {
+    color: var(--color-ink-muted);
+    font-style: italic;
+  }
+  .faq-group {
+    margin-bottom: 2.5rem;
+  }
+  .faq-group__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-brand-800);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-brand-200);
+  }
+  .faq-group__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .faq-group__item {
+    margin: 0;
+  }
+  .faq-group__link {
+    display: block;
+    padding: 1rem 1.15rem;
+    background: var(--color-paper-soft);
+    border-left: 3px solid var(--color-brand-500);
+    border-radius: 0 4px 4px 0;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .faq-group__link:hover {
+    background: var(--color-paper);
+    border-left-color: var(--color-brand-700);
+  }
+  .faq-group__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+  .faq-group__question {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.35;
+  }
+  .faq-group__short {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+    line-height: 1.55;
+  }
+  @media (max-width: 560px) {
+    .faq-group__head {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+  }
+</style>

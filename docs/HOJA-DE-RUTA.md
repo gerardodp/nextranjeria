@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 8 de abril de 2026.
+> Última actualización: 10 de abril de 2026 (Fase 1.1 Arraigo completada).
 
 ---
 
@@ -28,7 +28,7 @@
 - [x] Página: "Bulos y confusiones habituales" (con `<Rumor>`)
 - [x] Página: "Calendario y línea temporal"
 - [x] Página: "Diferencias entre regularización 2026 y arraigo"
-- [ ] FAQ honesta sobre la incertidumbre — pendiente (collection `faqs` creada, sin contenido aún)
+- [x] FAQ honesta sobre la incertidumbre — 8 FAQs atómicas publicadas en `/faq/regularizacion-2026/`, enlazadas desde hub y páginas del hub vía `relatedFaqs`. Ruta `/faq/` con índice y ficha individual (`FaqLayout`)
 - [x] Página de empadronamiento (pieza transversal crítica)
 - [x] Página de arraigo social (modelo del Hito 1, sirve de referencia para el resto del arraigo en Fase 1)
 
@@ -48,7 +48,7 @@
 - [x] **Extra de Fase 0**: 13 fichas de normativa con componente `<officialQnA>` para distinguir documentos institucionales sin valor normativo
 - [x] **Extra de Fase 0**: glosario arrancado con entrada "arraigo" y rutas `/glosario/`
 
-**Estado Fase 0: completada el 8 de abril de 2026.** Sitio en línea con hub Regularización 2026, empadronamiento, institucionales y 13 fichas de normativa. Build limpio (34 páginas), `astro check` sin errores ni warnings.
+**Estado Fase 0: completada el 10 de abril de 2026.** Sitio en línea con hub Regularización 2026 + 8 FAQs, empadronamiento, institucionales y 13 fichas de normativa. Build limpio (44 páginas), `astro check` sin errores ni warnings.
 
 ---
 
@@ -57,13 +57,13 @@
 **Objetivo**: cubrir las situaciones más demandadas más allá de la regularización.
 
 ### 1.1 Arraigo (las 5 modalidades)
-- [ ] Página índice: "Qué es el arraigo y qué tipos hay"
-- [ ] Arraigo social
-- [ ] Arraigo sociolaboral
-- [ ] Arraigo socioformativo
-- [ ] Arraigo familiar
-- [ ] Arraigo de segunda oportunidad
-- [ ] Página comparativa: "¿Qué arraigo me corresponde?"
+- [x] Página índice: "Qué es el arraigo y qué tipos hay"
+- [x] Arraigo social (ya existía en Fase 0, ampliado con relatedPages)
+- [x] Arraigo sociolaboral
+- [x] Arraigo socioformativo
+- [x] Arraigo familiar
+- [x] Arraigo de segunda oportunidad
+- [x] Página comparativa: "¿Qué arraigo me corresponde?"
 
 ### 1.2 Trámites esenciales transversales
 - [ ] NIE (qué es, cómo se obtiene)
