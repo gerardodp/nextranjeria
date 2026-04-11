@@ -1,0 +1,63 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import Card from '@components/ui/Card.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { pageUrl } from '@lib/utils';
+
+const all = await getCollection('pages');
+const pages = all
+  .filter(
+    (p: CollectionEntry<'pages'>) =>
+      p.data.category === 'trabajo' &&
+      p.data.status !== 'draft' &&
+      !p.data.noindex,
+  )
+  .sort((a: CollectionEntry<'pages'>, b: CollectionEntry<'pages'>) =>
+    a.data.title.localeCompare(b.data.title, 'es'),
+  );
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Residencia y trabajo' },
+];
+---
+
+<ListingLayout
+  title="Residencia y trabajo"
+  description="Autorizaciones de residencia y trabajo en España: cuenta ajena, cuenta propia, renovaciones y modificación de la situación. Base legal RD 1155/2024."
+  crumbs={crumbs}
+>
+  {pages.length === 0 ? (
+    <p class="empty">
+      Estamos elaborando los contenidos de esta sección. Mientras tanto,
+      puedes consultar la ficha del <a href="/normativa/real-decreto-1155-2024-reglamento-extranjeria/">
+      Reglamento de Extranjería (RD 1155/2024)</a>, que es la base legal
+      de las autorizaciones de residencia y trabajo.
+    </p>
+  ) : (
+    <div class="grid">
+      {pages.map((page: CollectionEntry<'pages'>) => (
+        <Card
+          href={pageUrl(page.data.category, page.id)}
+          title={page.data.title}
+          description={page.data.description}
+        />
+      ))}
+    </div>
+  )}
+</ListingLayout>
+
+<style>
+  .empty {
+    padding: 1rem 1.25rem;
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-ink-soft);
+  }
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+</style>

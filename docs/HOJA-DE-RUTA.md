@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 11 de abril de 2026 (Fase 1.4 Nacionalidad por residencia completada).
+> Última actualización: 12 de abril de 2026 (Fase 2.1 Trabajo completada).
 
 ---
 
@@ -99,10 +99,12 @@
 **Objetivo**: cubrir el resto del marco habitual de extranjería.
 
 ### 2.1 Trabajo
-- [ ] Residencia y trabajo por cuenta ajena
-- [ ] Residencia y trabajo por cuenta propia
-- [ ] Renovaciones de permisos de trabajo
-- [ ] Modificación de la situación
+- [x] Residencia y trabajo por cuenta ajena — ficha técnica completa con requisitos del trabajador y del empleador (art. 74 RD 1155/2024), situación nacional de empleo y Catálogo de Difícil Cobertura (art. 75), medios económicos del empleador persona física (art. 76), procedimiento (art. 77), cambio de empleador (art. 79) y diferencias con arraigo sociolaboral y cuenta propia
+- [x] Residencia y trabajo por cuenta propia — requisitos (art. 84), viabilidad del proyecto, procedimiento vía consulado (art. 85), comparativa con Ley 14/2013 de emprendedores y novedad del RD 1155/2024 (renovación a 4 años con habilitación para cuenta ajena)
+- [x] Renovaciones de permisos de trabajo — plazos (60 antes / 90 después), silencio positivo a los 3 meses, supuestos de renovación sin continuidad laboral (art. 80.2), descubiertos de cotización imputables al empleador (art. 80.7), duración ampliada a 4 años (arts. 81 y 87) y salto a larga duración
+- [x] Modificación de la situación — los tres supuestos del Título XI: de estudios a trabajo (art. 190), de residencia temporal a residencia y trabajo (art. 191) y modificaciones dentro del primer año (art. 192). Con mención de la autorización provisional con habilitación a jornada completa
+
+**Estado Fase 2.1: completada el 12 de abril de 2026.** 4 fichas técnicas nuevas en `/trabajo/`, apoyadas en el Título IV (Cap. III y IV) y Título XI del RD 1155/2024 más la LOEX. Nueva ruta `/trabajo/` con índice propio y enlace añadido al `SiteHeader`. Build de 69 páginas, `astro check` limpio (0 errores, 0 warnings). Distribución de autoría: Elena Navarro (cuenta ajena), Marcos Delgado (cuenta propia), Sofía Ramos (renovaciones), Javier Costa (modificación).
 
 ### 2.2 Familia
 - [ ] Reagrupación familiar (página completa)
