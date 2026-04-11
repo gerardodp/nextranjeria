@@ -32,6 +32,24 @@
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif: Georgia, 'Times New Roman', serif;
 
+  /* -----------------------------------------------------------------------
+   * Anchos de contenedor — dos tamaños y nada más
+   *
+   * --layout-shell    → header y footer (marco exterior del sitio)
+   * --layout-content  → TODO el contenido: home, listados, hub, fichas,
+   *                     guías, FAQs, glosario, normativa e institucionales
+   *
+   * Un único ancho para todo el contenido garantiza que NO haya layout
+   * shift al navegar de un nivel a otro. La medida de línea legible del
+   * texto corrido se controla dentro del wrapper con `.prose-legal` y
+   * su `max-width: 68ch`, no estrechando el wrapper.
+   *
+   * Los `max-width` sueltos en reglas específicas son siempre límites
+   * de medida de línea dentro de un bloque, nunca contenedores de página.
+   * ------------------------------------------------------------------- */
+  --layout-shell: 72rem;
+  --layout-content: 56rem;
+
   /* Paleta neutra con acento azul grisáceo formal */
   --color-brand-50: #f4f7fb;
   --color-brand-100: #e6ecf4;
@@ -229,6 +247,39 @@ body {
   border: none;
   border-top: 1px solid var(--color-border);
   margin: 2.5rem 0;
+}
+
+/* Tablas dentro del contenido editorial: scroll horizontal en móvil para
+ * que no fuercen desbordamiento del wrapper. display:block rompe el
+ * ancho implícito del <table>, permitiendo overflow-x:auto. */
+.prose-legal table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  width: max-content;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+.prose-legal table th,
+.prose-legal table td {
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid var(--color-border);
+  line-height: 1.5;
+}
+
+.prose-legal table th {
+  background: var(--color-paper-soft);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prose-legal table td {
+  color: var(--color-ink);
 }
 
 /* -----------------------------------------------------------------------------

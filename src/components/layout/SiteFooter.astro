@@ -16,7 +16,8 @@ const year = new Date().getFullYear();
       <ul>
         <li><a href="/regularizacion-2026/">Regularización 2026</a></li>
         <li><a href="/guias/">Guías por situación</a></li>
-        <li><a href="/autorizaciones/">Autorizaciones</a></li>
+        <li><a href="/materias/">Materias</a></li>
+        <li><a href="/tramites/">Trámites</a></li>
         <li><a href="/normativa/">Normativa</a></li>
         <li><a href="/glosario/">Glosario</a></li>
       </ul>
@@ -50,7 +51,7 @@ const year = new Date().getFullYear();
     color: var(--color-ink-soft);
   }
   .site-footer__inner {
-    max-width: 72rem;
+    max-width: var(--layout-shell);
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
@@ -91,7 +92,7 @@ const year = new Date().getFullYear();
     text-decoration: underline;
   }
   .site-footer__bottom {
-    max-width: 72rem;
+    max-width: var(--layout-shell);
     margin: 2rem auto 0;
     padding-top: 1.25rem;
     border-top: 1px solid var(--color-border);
@@ -100,7 +101,6 @@ const year = new Date().getFullYear();
   }
   .site-footer__bottom p {
     margin: 0;
-    max-width: 60rem;
   }
   @media (max-width: 760px) {
     .site-footer__inner {

@@ -1,0 +1,80 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import Card from '@components/ui/Card.astro';
+
+interface Materia {
+  title: string;
+  description: string;
+  href?: string;
+  eyebrow?: string;
+}
+
+const materias: Materia[] = [
+  {
+    title: 'Autorizaciones de residencia',
+    description:
+      'Arraigo en sus cinco modalidades, reagrupación familiar y otras vías de residencia reguladas por el RD 1155/2024.',
+    href: '/autorizaciones/',
+  },
+  {
+    title: 'Trabajo',
+    description:
+      'Residencia y trabajo por cuenta ajena y por cuenta propia, renovaciones y modificación de la situación.',
+    href: '/trabajo/',
+  },
+  {
+    title: 'Ciudadanos UE y familia',
+    description:
+      'Régimen comunitario: familiares de ciudadanos españoles y de la UE/EEE/Suiza. Base legal RD 240/2007.',
+    href: '/ciudadanos-ue/',
+  },
+  {
+    title: 'Nacionalidad',
+    description:
+      'Vías de adquisición de la nacionalidad española, plazos reducidos, exámenes y procedimiento.',
+    href: '/nacionalidad/',
+  },
+  {
+    title: 'Estudios',
+    description:
+      'Visado de estudios, estancia por estudios, trabajar durante los estudios y modificación a residencia.',
+    eyebrow: 'Próximamente',
+  },
+  {
+    title: 'Protección internacional',
+    description:
+      'Derecho de asilo, protección subsidiaria, apatridia y protección temporal.',
+    eyebrow: 'Próximamente',
+  },
+];
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Materias' },
+];
+---
+
+<ListingLayout
+  title="Materias"
+  description="Las grandes áreas del derecho de extranjería, inmigración y nacionalidad agrupadas por bloque. Cada materia contiene fichas técnicas, guías y trámites relacionados."
+  crumbs={crumbs}
+>
+  <div class="materias-grid">
+    {materias.map((m) => (
+      <Card
+        href={m.href}
+        title={m.title}
+        description={m.description}
+        eyebrow={m.eyebrow}
+      />
+    ))}
+  </div>
+</ListingLayout>
+
+<style>
+  .materias-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+</style>

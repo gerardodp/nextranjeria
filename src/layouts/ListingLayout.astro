@@ -31,7 +31,7 @@ const { title, description, eyebrow, crumbs } = Astro.props;
     padding: 2rem 1.5rem 3rem;
   }
   .listing-layout__inner {
-    max-width: 64rem;
+    max-width: var(--layout-content);
     margin: 0 auto;
   }
   .listing-layout__eyebrow {
@@ -54,6 +54,5 @@ const { title, description, eyebrow, crumbs } = Astro.props;
     color: var(--color-ink-soft);
     line-height: 1.55;
     margin: 0 0 2rem 0;
-    max-width: 52rem;
   }
 </style>

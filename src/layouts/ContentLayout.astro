@@ -90,6 +90,7 @@ const jsonLd = [jsonLdArticle, jsonLdBreadcrumb];
 >
   <article class="content-layout">
     <div class="content-layout__inner">
+      <Breadcrumbs items={crumbs} />
       {hubItems.length > 1 && (
         <HubNav
           items={hubItems}
@@ -97,7 +98,6 @@ const jsonLd = [jsonLdArticle, jsonLdBreadcrumb];
           hubTitle="Hub Regularización 2026"
         />
       )}
-      <Breadcrumbs items={crumbs} />
       <header class="content-layout__header">
         <div class="content-layout__status">
           <StatusPill status={data.normativeStatus} />
@@ -145,7 +145,7 @@ const jsonLd = [jsonLdArticle, jsonLdBreadcrumb];
     padding: 2rem 1.5rem 3rem;
   }
   .content-layout__inner {
-    max-width: 48rem;
+    max-width: var(--layout-content);
     margin: 0 auto;
   }
   .content-layout__header {
