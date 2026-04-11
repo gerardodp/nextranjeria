@@ -12,14 +12,14 @@ import { buildContentLastmodMap } from './scripts/build-sitemap-lastmod.mjs';
 // Ver `scripts/build-sitemap-lastmod.mjs` para los detalles del cálculo.
 const urlToLastmod = buildContentLastmodMap();
 
-// Rutas que nunca deben aparecer en el sitemap. Coinciden con el
-// `Disallow` del `robots.txt` y añaden páginas legales/meta que no
-// aportan valor de indexación (aviso legal, política, contacto).
+// Rutas que nunca deben aparecer en el sitemap. Son páginas legales o
+// meta que no aportan valor de indexación. No listamos aquí rutas
+// privadas (p. ej. paneles internos) para no dar pistas públicas de su
+// existencia: se bloquean en el código, no en configuración visible.
 const SITEMAP_EXCLUDED = [
   '/aviso-legal/',
   '/politica-privacidad/',
   '/contacto/',
-  '/mi-dashboard/',
 ];
 
 // https://astro.build/config

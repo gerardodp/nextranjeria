@@ -8,7 +8,6 @@ const robotsTxt = (site: string) => `# Nextranjería — robots.txt
 
 User-agent: *
 Allow: /
-Disallow: /mi-dashboard/
 Disallow: /api/
 
 # AI crawlers — acceso explícitamente permitido
