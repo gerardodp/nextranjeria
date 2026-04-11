@@ -36,7 +36,7 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title={data.title}
+  title={data.seoTitle ?? data.title}
   description={data.description}
   canonicalUrl={data.canonicalUrl}
   noindex={data.noindex}

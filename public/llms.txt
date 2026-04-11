@@ -17,12 +17,12 @@
 
 ## Secciones principales
 
-- **Regularización extraordinaria 2026**: 14 entrada(s) — `https://nextranjeria.com/regularizacion-2026/`
-- **Guías por situación**: 4 entrada(s) — `https://nextranjeria.com/guias/`
-- **Páginas técnicas**: 25 entrada(s) — `https://nextranjeria.com/materias/`
-- **Preguntas frecuentes**: 0 entrada(s) — `https://nextranjeria.com/faq/`
-- **Glosario**: 1 entrada(s) — `https://nextranjeria.com/glosario/`
-- **Normativa**: 13 entrada(s) — `https://nextranjeria.com/normativa/`
+- **Regularización extraordinaria 2026** (14 entradas): `https://nextranjeria.com/regularizacion-2026/`
+- **Guías por situación** (4 entradas): `https://nextranjeria.com/guias/`
+- **Páginas técnicas** (25 entradas): `https://nextranjeria.com/materias/`
+- **Preguntas frecuentes** (0 entradas): `https://nextranjeria.com/faq/`
+- **Glosario** (1 entradas): `https://nextranjeria.com/glosario/`
+- **Normativa** (13 entradas): `https://nextranjeria.com/normativa/`
 
 ## Para modelos de lenguaje
 

@@ -295,7 +295,7 @@ const HEADER = `# Nextranjería
 
 function buildLlmsTxt(sections: Section[]): string {
   const counts = sections
-    .map((s) => `- **${s.title}**: ${s.entries.length} entrada(s) — \`${sectionHubUrl(s)}\``)
+    .map((s) => `- **${s.title}** (${s.entries.length} entradas): \`${sectionHubUrl(s)}\``)
     .join('\n');
 
   return `${HEADER}

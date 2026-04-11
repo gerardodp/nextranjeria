@@ -4,16 +4,17 @@ import Breadcrumbs from '@components/layout/Breadcrumbs.astro';
 
 interface Props {
   title: string;
+  seoTitle?: string;
   description: string;
   eyebrow?: string;
   crumbs: { label: string; href?: string }[];
   noindex?: boolean;
 }
 
-const { title, description, eyebrow, crumbs, noindex } = Astro.props;
+const { title, seoTitle, description, eyebrow, crumbs, noindex } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} noindex={noindex}>
+<BaseLayout title={seoTitle ?? title} description={description} noindex={noindex}>
   <div class="listing-layout">
     <div class="listing-layout__inner">
       <Breadcrumbs items={crumbs} />

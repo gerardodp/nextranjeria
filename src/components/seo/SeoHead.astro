@@ -19,7 +19,7 @@ const {
 
 const canonical = canonicalUrl ? new URL(canonicalUrl, Astro.site).toString() : new URL(Astro.url.pathname, Astro.site).toString();
 const siteName = 'Nextranjería';
-const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 ---
 
 <title>{fullTitle}</title>

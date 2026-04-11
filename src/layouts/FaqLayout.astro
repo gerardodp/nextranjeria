@@ -28,7 +28,7 @@ const faqJsonLd = buildFaqPageJsonLd(entry, {
 ---
 
 <BaseLayout
-  title={data.question}
+  title={data.seoTitle ?? data.question}
   description={data.shortAnswer}
   noindex={data.noindex}
   jsonLd={faqJsonLd}

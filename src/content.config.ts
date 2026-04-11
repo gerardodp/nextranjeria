@@ -123,6 +123,13 @@ export const normativaStatus = [
 
 const baseSchema = z.object({
   title: z.string().min(1).max(80),
+  /**
+   * Título alternativo solo para `<title>` / `og:title` / `twitter:title`.
+   * Útil cuando el `title` visible (H1) es corto y ambiguo fuera de contexto
+   * o choca con otra página con el mismo nombre. Si se omite, el `<title>`
+   * usa `title`.
+   */
+  seoTitle: z.string().min(1).max(80).optional(),
   description: z.string().min(1).max(160),
   author: z.string().default('Nextranjería'),
   pubDate: z.coerce.date(),
@@ -262,6 +269,12 @@ const normativa = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/normativa' }),
   schema: z.object({
     title: z.string().min(1).max(120),
+    /**
+     * Título alternativo solo para `<title>` / `og:title` / `twitter:title`.
+     * Útil cuando el `title` visible (H1) es breve (p. ej. "Ley 28/2022") y
+     * necesitamos un `<title>` más descriptivo para la SERP.
+     */
+    seoTitle: z.string().min(1).max(120).optional(),
     shortTitle: z.string().min(1).max(60),
     longTitle: z.string().min(1),
     type: z.enum(normativaTypes),
