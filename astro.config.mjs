@@ -19,6 +19,7 @@ const urlToLastmod = buildContentLastmodMap();
 const SITEMAP_EXCLUDED = [
   '/aviso-legal/',
   '/politica-privacidad/',
+  '/politica-cookies/',
   '/contacto/',
 ];
 

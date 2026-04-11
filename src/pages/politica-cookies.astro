@@ -1,0 +1,202 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Política de cookies' },
+];
+---
+
+<ListingLayout
+  title="Política de cookies"
+  description="Cookies y almacenamiento local utilizados en Nextranjería, base jurídica y cómo gestionar tus preferencias."
+  crumbs={crumbs}
+  noindex
+>
+  <div class="prose-legal">
+    <p>
+      En cumplimiento del artículo 22.2 de la Ley 34/2002, de Servicios
+      de la Sociedad de la Información y de Comercio Electrónico (LSSI)
+      y del Reglamento (UE) 2016/679 (RGPD), informamos del uso de
+      cookies y de otras tecnologías de almacenamiento local en
+      nextranjeria.com, titularidad de Gerardo Diaz Polaino
+      (NIF: 43815808A, <a href="mailto:info@nextranjeria.com">info@nextranjeria.com</a>).
+    </p>
+
+    <h2>¿Qué es una cookie?</h2>
+    <p>
+      Una cookie es un pequeño archivo de texto que un sitio web
+      almacena en tu dispositivo al visitarlo. Sirven, entre otras
+      cosas, para recordar preferencias, mantener la sesión iniciada o
+      recopilar información anónima sobre el uso del sitio. Junto a las
+      cookies, existen otros mecanismos de almacenamiento local del
+      navegador (como <em>localStorage</em>) que tienen una función
+      similar y a los que, por transparencia, aplicamos la misma
+      política.
+    </p>
+
+    <h2>Almacenamiento propio (técnico)</h2>
+    <p>
+      Nextranjería <strong>no utiliza cookies propias</strong>. El único
+      dato que almacenamos directamente en tu navegador es una entrada
+      en <em>localStorage</em> que guarda tus preferencias de
+      consentimiento para que no tengamos que volver a preguntártelas
+      cada vez que entras en el sitio.
+    </p>
+
+    <table class="cookie-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Finalidad</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>cookie-consent</code></td>
+          <td>localStorage</td>
+          <td>Almacena tus preferencias de cookies para no volver a mostrarte el banner.</td>
+          <td>Permanente hasta que lo borres manualmente</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Al tratarse de una tecnología estrictamente necesaria para que la
+      gestión del consentimiento funcione, su uso no requiere
+      consentimiento previo conforme al artículo 22.2 LSSI.
+    </p>
+
+    <h2>Cookies de analítica (Google Analytics 4)</h2>
+    <p>
+      Utilizamos <strong>Google Analytics 4</strong>, cargado a través
+      de <strong>Google Tag Manager</strong>, para medir el uso del
+      sitio de forma agregada. Estas cookies
+      <strong>solo se activan si aceptas expresamente</strong> en el
+      banner de consentimiento; en caso contrario, el tag se carga
+      inactivo gracias a <em>Google Consent Mode v2</em> y no almacena
+      cookies ni envía datos identificables.
+    </p>
+
+    <table class="cookie-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Proveedor</th>
+          <th>Finalidad</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>_ga</code></td>
+          <td>Google</td>
+          <td>Distinguir usuarios únicos.</td>
+          <td>2 años</td>
+        </tr>
+        <tr>
+          <td><code>_ga_*</code></td>
+          <td>Google</td>
+          <td>Mantener el estado de sesión en GA4.</td>
+          <td>2 años</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Google actúa como encargado del tratamiento y puede transferir
+      datos fuera del Espacio Económico Europeo amparado en las
+      cláusulas contractuales tipo de la Comisión Europea. Consulta la
+      política de privacidad de Google en
+      <a href="https://policies.google.com/privacy" rel="noopener">policies.google.com/privacy</a>.
+    </p>
+
+    <h2>Otras categorías</h2>
+    <p>
+      Nextranjería <strong>no utiliza cookies publicitarias, de
+      remarketing ni de redes sociales</strong>. El sitio no participa
+      en programas de afiliación ni inserta publicidad de terceros.
+    </p>
+
+    <h2>Google Consent Mode v2</h2>
+    <p>
+      Este sitio implementa Google Consent Mode v2 con estado por
+      defecto <strong>denegado</strong> (<code>denied</code>) para las
+      categorías <code>analytics_storage</code>, <code>ad_storage</code>,
+      <code>ad_user_data</code> y <code>ad_personalization</code>. Esto
+      significa que:
+    </p>
+    <ul>
+      <li>
+        Al entrar por primera vez, Google Analytics y cualquier otro
+        tag gestionado por GTM se comportan como si hubieses rechazado
+        todas las cookies.
+      </li>
+      <li>
+        Solo cuando aceptas expresamente en el banner se dispara una
+        señal <code>update</code> que permite a los tags activarse.
+      </li>
+      <li>
+        Si rechazas o solo aceptas las necesarias, el estado permanece
+        denegado y no se instalan cookies de analítica.
+      </li>
+    </ul>
+
+    <h2>Cómo gestionar tus preferencias</h2>
+    <ul>
+      <li>
+        <strong>Banner de consentimiento:</strong> al entrar por primera
+        vez en el sitio puedes aceptar todas las cookies, rechazar las
+        no necesarias o configurar las categorías de forma individual.
+      </li>
+      <li>
+        <strong>Revocar el consentimiento:</strong> puedes eliminar la
+        clave <code>cookie-consent</code> de <em>localStorage</em> desde
+        las herramientas de desarrollo del navegador para hacer
+        reaparecer el banner. También puedes borrar las cookies
+        <code>_ga</code> y <code>_ga_*</code> directamente desde la
+        configuración de cookies de tu navegador.
+      </li>
+      <li>
+        <strong>Configuración del navegador:</strong> todos los
+        navegadores modernos permiten bloquear o eliminar cookies desde
+        sus ajustes. Consulta la documentación de tu navegador para
+        saber cómo hacerlo.
+      </li>
+    </ul>
+
+    <h2>Actualización de esta política</h2>
+    <p>
+      Esta política de cookies puede actualizarse para reflejar
+      cambios en las herramientas utilizadas o en la legislación
+      aplicable. Cualquier cambio relevante se publicará en esta
+      página con la fecha correspondiente.
+    </p>
+  </div>
+</ListingLayout>
+
+<style>
+  .cookie-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0 1.5rem;
+    font-size: 0.92rem;
+  }
+  .cookie-table th,
+  .cookie-table td {
+    border: 1px solid var(--color-border);
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .cookie-table th {
+    background: var(--color-paper-soft);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .cookie-table code {
+    font-size: 0.88em;
+  }
+</style>

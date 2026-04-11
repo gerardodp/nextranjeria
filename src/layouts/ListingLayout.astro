@@ -7,12 +7,13 @@ interface Props {
   description: string;
   eyebrow?: string;
   crumbs: { label: string; href?: string }[];
+  noindex?: boolean;
 }
 
-const { title, description, eyebrow, crumbs } = Astro.props;
+const { title, description, eyebrow, crumbs, noindex } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} noindex={noindex}>
   <div class="listing-layout">
     <div class="listing-layout__inner">
       <Breadcrumbs items={crumbs} />

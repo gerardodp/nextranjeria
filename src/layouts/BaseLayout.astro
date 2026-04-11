@@ -32,6 +32,53 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    {/*
+      Google Consent Mode v2 — se inicializa ANTES que GTM. Estado por
+      defecto: todo denegado globalmente (no usamos `region` porque
+      queremos la misma protección para todos los visitantes con
+      independencia de la jurisdicción). Los tags gestionados por GTM
+      (GA4) no disparan hasta que el banner emita un `update` con los
+      permisos concedidos por el usuario.
+    */}
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500,
+      });
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', true);
+    </script>
+
+    {/*
+      Google Tag Manager — carga diferida con `setTimeout(..., 0)` para
+      no bloquear el first paint. GTM siempre se carga; son los tags
+      individuales los que respetan el Consent Mode.
+    */}
+    <script is:inline>
+      setTimeout(function () {
+        (function (w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+          f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-573T6MWD');
+      }, 0);
+    </script>
+
     <SeoHead
       title={title}
       description={description}
@@ -42,12 +89,138 @@ const {
     />
   </head>
   <body class={bodyClass}>
+    {/* GTM noscript fallback — obligatorio para usuarios sin JS */}
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-573T6MWD"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
+
     <a href="#main" class="skip-link">Saltar al contenido</a>
     <SiteHeader />
     <main id="main">
       <slot />
     </main>
     <SiteFooter />
+
+    {/*
+      Oculta el banner ANTES del primer paint si el usuario ya tiene
+      consentimiento guardado, para evitar Cumulative Layout Shift.
+      Usamos `document.write` deliberadamente: es la única forma fiable
+      de inyectar CSS sincronamente antes de pintar el body. Alternativas
+      basadas en `document.head.appendChild` se ejecutan demasiado tarde
+      y provocan un flash visible del banner.
+    */}
+    <script is:inline>
+      if (localStorage.getItem('cookie-consent')) {
+        // eslint-disable-next-line
+        document.write('<style>#consent-banner{display:none}</style>');
+      }
+    </script>
+
+    <div id="consent-banner" class="consent-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+      <div class="consent-banner__inner">
+        <p class="consent-banner__text">
+          Utilizamos cookies de analítica (Google Analytics 4 a través de
+          Google Tag Manager) para entender cómo se usa el sitio. Están
+          desactivadas por defecto y solo se activan si las aceptas.
+          Más información en la
+          <a href="/politica-cookies/">política de cookies</a>.
+        </p>
+        <div class="consent-banner__actions">
+          <button id="consent-accept-all" type="button" class="consent-btn consent-btn--primary">
+            Aceptar todas
+          </button>
+          <button id="consent-reject" type="button" class="consent-btn consent-btn--ghost">
+            Solo necesarias
+          </button>
+          <button id="consent-toggle-details" type="button" class="consent-btn consent-btn--link">
+            Configurar
+          </button>
+        </div>
+        <div id="consent-details" class="consent-banner__details" hidden>
+          <label class="consent-option">
+            <input type="checkbox" checked disabled />
+            <span><strong>Necesarias</strong> — imprescindibles para que funcione el banner. Siempre activas.</span>
+          </label>
+          <label class="consent-option">
+            <input type="checkbox" id="consent-analytics" />
+            <span><strong>Analítica</strong> — Google Analytics 4 a través de Google Tag Manager.</span>
+          </label>
+          <button id="consent-save" type="button" class="consent-btn consent-btn--primary">
+            Guardar preferencias
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var CONSENT_KEY = 'cookie-consent';
+        var banner = document.getElementById('consent-banner');
+        if (!banner) return;
+        var details = document.getElementById('consent-details');
+
+        function gtag() {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(arguments);
+        }
+
+        function updateConsent(analytics) {
+          gtag('consent', 'update', {
+            analytics_storage: analytics ? 'granted' : 'denied',
+          });
+        }
+
+        function saveAndHide(analytics) {
+          localStorage.setItem(
+            CONSENT_KEY,
+            JSON.stringify({ analytics: analytics, timestamp: Date.now() }),
+          );
+          updateConsent(analytics);
+          banner.style.display = 'none';
+        }
+
+        var saved = localStorage.getItem(CONSENT_KEY);
+        if (saved) {
+          try {
+            var prefs = JSON.parse(saved);
+            updateConsent(!!prefs.analytics);
+          } catch (e) {
+            /* mostrar banner */
+          }
+        }
+
+        document
+          .getElementById('consent-accept-all')
+          .addEventListener('click', function () {
+            saveAndHide(true);
+          });
+        document
+          .getElementById('consent-reject')
+          .addEventListener('click', function () {
+            saveAndHide(false);
+          });
+        document
+          .getElementById('consent-toggle-details')
+          .addEventListener('click', function () {
+            if (details.hasAttribute('hidden')) {
+              details.removeAttribute('hidden');
+            } else {
+              details.setAttribute('hidden', '');
+            }
+          });
+        document
+          .getElementById('consent-save')
+          .addEventListener('click', function () {
+            var analyticsEl = document.getElementById('consent-analytics');
+            saveAndHide(analyticsEl.checked);
+          });
+      })();
+    </script>
 
     <style is:global>
       .skip-link {
@@ -63,6 +236,106 @@ const {
       }
       .skip-link:focus {
         top: 0;
+      }
+
+      /* Consent banner — overlay fijo abajo, independiente del layout */
+      .consent-banner {
+        position: fixed;
+        inset: auto 0 0 0;
+        z-index: 120;
+        padding: 0 1rem 1rem;
+        font-family: inherit;
+      }
+      .consent-banner__inner {
+        max-width: 52rem;
+        margin: 0 auto;
+        background: var(--color-brand-900);
+        color: #fff;
+        border-radius: 0.6rem;
+        padding: 1.15rem 1.25rem;
+        box-shadow: 0 18px 48px -12px rgba(15, 23, 42, 0.45);
+      }
+      .consent-banner__text {
+        margin: 0 0 0.9rem;
+        font-size: 0.92rem;
+        line-height: 1.55;
+        color: #e6ecf4;
+      }
+      .consent-banner__text a {
+        color: #fff;
+        text-decoration: underline;
+      }
+      .consent-banner__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+      .consent-banner__details {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        display: grid;
+        gap: 0.8rem;
+      }
+      .consent-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 0.88rem;
+        line-height: 1.45;
+        color: #e6ecf4;
+      }
+      .consent-option input[type='checkbox'] {
+        margin-top: 0.2rem;
+        accent-color: #6b88ae;
+      }
+      .consent-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.55rem 1rem;
+        font: inherit;
+        font-size: 0.88rem;
+        font-weight: 600;
+        border-radius: 0.4rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+      }
+      .consent-btn--primary {
+        background: #fff;
+        color: var(--color-brand-900);
+      }
+      .consent-btn--primary:hover {
+        background: #e6ecf4;
+      }
+      .consent-btn--ghost {
+        background: transparent;
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .consent-btn--ghost:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .consent-btn--link {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.72);
+        padding: 0.55rem 0.4rem;
+      }
+      .consent-btn--link:hover {
+        color: #fff;
+      }
+      @media (max-width: 600px) {
+        .consent-banner__actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .consent-btn {
+          width: 100%;
+        }
       }
     </style>
   </body>

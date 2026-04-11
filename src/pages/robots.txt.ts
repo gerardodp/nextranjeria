@@ -9,6 +9,10 @@ const robotsTxt = (site: string) => `# Nextranjería — robots.txt
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /aviso-legal/
+Disallow: /politica-privacidad/
+Disallow: /politica-cookies/
+Disallow: /contacto/
 
 # AI crawlers — acceso explícitamente permitido
 User-agent: GPTBot
