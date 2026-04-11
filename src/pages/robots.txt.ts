@@ -66,7 +66,7 @@ Sitemap: ${site}sitemap-index.xml
 `;
 
 export const GET: APIRoute = ({ site }) => {
-  const siteUrl = site?.toString() ?? 'https://nextranjeria.es/';
+  const siteUrl = site?.toString() ?? 'https://nextranjeria.com/';
   return new Response(robotsTxt(siteUrl), {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   });

@@ -23,7 +23,7 @@ import { join, extname, basename, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from './lib/frontmatter.mjs';
 
-export const SITE = 'https://nextranjeria.es';
+export const SITE = 'https://nextranjeria.com';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const CONTENT_DIR = join(__dirname, '..', 'src', 'content');

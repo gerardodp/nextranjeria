@@ -24,7 +24,7 @@ const SITEMAP_EXCLUDED = [
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nextranjeria.es',
+  site: 'https://nextranjeria.com',
   output: 'static',
   adapter: vercel({
     webAnalytics: { enabled: false },
