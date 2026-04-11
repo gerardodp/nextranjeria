@@ -1,0 +1,63 @@
+---
+import ListingLayout from '@layouts/ListingLayout.astro';
+import Card from '@components/ui/Card.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { pageUrl } from '@lib/utils';
+
+const all = await getCollection('pages');
+const pages = all
+  .filter(
+    (p: CollectionEntry<'pages'>) =>
+      p.data.category === 'ciudadanos-ue' &&
+      p.data.status !== 'draft' &&
+      !p.data.noindex,
+  )
+  .sort((a: CollectionEntry<'pages'>, b: CollectionEntry<'pages'>) =>
+    a.data.title.localeCompare(b.data.title, 'es'),
+  );
+
+const crumbs = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Ciudadanos UE y familia' },
+];
+---
+
+<ListingLayout
+  title="Ciudadanos UE y familia"
+  description="Régimen comunitario: familiares de ciudadanos españoles y de la UE/EEE/Suiza, tarjeta de residencia de familiar de la Unión y derechos asociados. Base legal RD 240/2007."
+  crumbs={crumbs}
+>
+  {pages.length === 0 ? (
+    <p class="empty">
+      Estamos elaborando los contenidos de esta sección. Mientras tanto,
+      puedes consultar la ficha del <a href="/normativa/real-decreto-240-2007-ciudadanos-ue/">
+      RD 240/2007</a>, que es la norma base del régimen comunitario
+      en España.
+    </p>
+  ) : (
+    <div class="grid">
+      {pages.map((page: CollectionEntry<'pages'>) => (
+        <Card
+          href={pageUrl(page.data.category, page.id)}
+          title={page.data.title}
+          description={page.data.description}
+        />
+      ))}
+    </div>
+  )}
+</ListingLayout>
+
+<style>
+  .empty {
+    padding: 1rem 1.25rem;
+    background: var(--color-paper-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-ink-soft);
+  }
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+</style>

@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 12 de abril de 2026 (Fase 2.1 Trabajo completada).
+> Última actualización: 12 de abril de 2026 (Fase 2.2 Familia completada).
 
 ---
 
@@ -107,9 +107,11 @@
 **Estado Fase 2.1: completada el 12 de abril de 2026.** 4 fichas técnicas nuevas en `/trabajo/`, apoyadas en el Título IV (Cap. III y IV) y Título XI del RD 1155/2024 más la LOEX. Nueva ruta `/trabajo/` con índice propio y enlace añadido al `SiteHeader`. Build de 69 páginas, `astro check` limpio (0 errores, 0 warnings). Distribución de autoría: Elena Navarro (cuenta ajena), Marcos Delgado (cuenta propia), Sofía Ramos (renovaciones), Javier Costa (modificación).
 
 ### 2.2 Familia
-- [ ] Reagrupación familiar (página completa)
-- [ ] Familiares de ciudadanos españoles
-- [ ] Familiares de ciudadanos UE
+- [x] Reagrupación familiar (página completa) — ficha técnica en `/autorizaciones/reagrupacion-familiar/` basada en el **Título IV, Capítulo II, arts. 65 a 71** del RD 1155/2024. Cubre definición, familiares reagrupables (art. 66), requisitos del reagrupante (art. 67, con medios económicos al 150% IPREM + 50% por miembro adicional y cláusula de interés superior del menor, y el informe de vivienda del art. 3.c Ley 12/2023), procedimiento con silencio positivo (art. 68), residencia independiente del reagrupado (art. 69, con los supuestos de ruptura tras 2 años de convivencia, violencia de género y mayoría de edad del hijo), reagrupación en cadena (art. 70) y renovación a 4 años (art. 71). Novedad RD 1155/2024: habilitación directa para trabajar de cónyuge, pareja e hijos reagrupados (art. 65.2)
+- [x] Familiares de ciudadanos españoles — ficha en `/ciudadanos-ue/familiares-ciudadano-espanol.mdx` con la arquitectura normativa correcta: RD 240/2007 interpretado por la **STS 1 de junio de 2010** (BOE-A-2010-16822) y la **DA 19ª del Reglamento LOEX** (introducida por la DF 3ª del propio RD 240/2007). Cubre tarjeta de familiar de la Unión (art. 8), concepto de "a cargo", art. 2 bis para pareja no registrada, mantenimiento del derecho tras ruptura (art. 9) y residencia permanente (arts. 10-11)
+- [x] Familiares de ciudadanos UE — ficha en `/ciudadanos-ue/familiares-ciudadano-ue.mdx` con la aplicación directa del RD 240/2007. Destaca el requisito previo del titular UE (art. 7: trabajador, recursos suficientes, estudiante o familiar), certificado de registro de ciudadano de la Unión, tarjeta para el familiar no comunitario (art. 8), art. 2 bis para familiares extendidos y pareja no registrada, visado gratuito y preferente (art. 4), mantenimiento del derecho (art. 9), residencia permanente (arts. 10-11) y garantías frente a la expulsión (art. 15: amenaza real, actual y suficientemente grave)
+
+**Estado Fase 2.2: completada el 12 de abril de 2026.** 3 fichas técnicas nuevas apoyadas en el RD 1155/2024 (reagrupación ordinaria) y en el RD 240/2007 (régimen comunitario). Primera vez que se publica contenido en la categoría `ciudadanos-ue`: nueva ruta `/ciudadanos-ue/` con índice propio y enlace añadido al `SiteHeader` entre "Trabajo" y "Trámites". Guía "Quiero traer a mi familia" actualizada para corregir la referencia errónea al "Título X" (ahora Título IV, Cap. II, arts. 65-71) y enlazar a las tres fichas reales en vez de marcarlas como "en preparación". Distribución de autoría: Javier Costa (reagrupación, también autor de la guía de familia), Elena Navarro (familiares de español), Marcos Delgado (familiares de UE).
 
 ### 2.3 Estudios
 - [ ] Visado de estudios
