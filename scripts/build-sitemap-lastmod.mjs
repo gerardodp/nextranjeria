@@ -92,7 +92,7 @@ function maxDate(...dates) {
  * Devuelve null si la entrada no debería aparecer en el sitemap (por
  * ejemplo, porque la colección no se enruta).
  */
-function buildEntryUrl(collectionName, file, fm) {
+export function buildEntryUrl(collectionName, file, fm) {
   const collectionDir = join(CONTENT_DIR, collectionName);
   // Path relativo dentro de la colección, sin extensión, normalizado a `/`.
   const rel = toUrlPath(
