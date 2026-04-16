@@ -4,11 +4,11 @@
   "phases": {
     "fase-0": {
       "label": "Fase 0 — Lanzamiento inmediato",
-      "status": "in-progress"
+      "status": "completed"
     },
     "fase-1": {
       "label": "Fase 1 — Contenidos urgentes y de alta demanda",
-      "status": "pending"
+      "status": "in-progress"
     }
   },
   "items": [

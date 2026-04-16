@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 12 de abril de 2026 (Fase 2.2 Familia completada).
+> Última actualización: 16 de abril de 2026 (hub de regularización 2026 actualizado tras entrada en vigor del RD 316/2026 e infraestructura de indexación operativa).
 
 ---
 
@@ -206,6 +206,33 @@
 - [ ] Buscador en lenguaje natural
 - [ ] Autocompletado y sugerencias
 - [ ] Sinónimos y términos coloquiales
+
+---
+
+## Hito extraordinario: publicación del RD 316/2026 (16 de abril de 2026)
+
+El 15 de abril de 2026 se publicó en el BOE el **Real Decreto 316/2026**, que
+modifica el Reglamento de Extranjería (RD 1155/2024) y articula la llamada
+"regularización extraordinaria 2026" como dos nuevas vías de arraigo
+(disposiciones adicionales 20.ª y 21.ª) con plazo de solicitud hasta el
+**30 de junio de 2026**. Entrada en vigor: 16 de abril de 2026.
+
+### Actualización de contenidos
+- [x] Ficha nueva `normativa/real-decreto-316-2026-modificacion-reglamento-extranjeria.mdx` (`status: en-vigor`).
+- [x] `normativa/real-decreto-1155-2024-reglamento-extranjeria.mdx` pasa a `status: modificada`, con `modifiedBy` al RD 316/2026 y sección que enumera los artículos retocados.
+- [x] `normativa/qa-ministerial-regularizacion-2026.mdx` pasa a `status: historica` como antecedente institucional superado.
+- [x] 5 páginas del hub reescritas con `normativeStatus: vigente`, usando `<EnVigor>`/`<BOE>` en lugar de `<Borrador>`/`<Anunciado>`.
+- [x] 9 FAQs del hub reescritas con los datos reales del RD.
+- [x] 5 FAQs nuevas: `declaracion-responsable-antecedentes`, `informe-vulnerabilidad-quien-emite`, `diferencia-da-20-da-21`, `proteccion-temporal-ucrania`, `hijos-menores-expediente`.
+- [x] Guía `estoy-sin-papeles` actualizada: ahora habla de las tres vías vivas (arraigo ordinario + D.A. 20.ª + D.A. 21.ª).
+
+### Infraestructura de indexación
+- [x] Service account `indexing@nextranjeria-dashboard.iam.gserviceaccount.com` creado en GCP con las cuatro APIs habilitadas (Site Verification, Indexing, Search Console, Analytics Data).
+- [x] Verificación del SA como propietario de `sc-domain:nextranjeria.com` vía `scripts/verify-sa-in-gsc.ts` (DNS TXT).
+- [x] Scripts portados de QueAlarma: `notify-sitemap.ts`, `notify-indexing-api.ts`, `publish-scheduled.ts`, `verify-sa-in-gsc.ts`, `lib/google-auth.mjs`.
+- [x] Workflow `.github/workflows/scheduled-publish.yml` con cron diario (06:00 UTC) para publicación programada + ping a Indexing API + reenvío de sitemap a GSC.
+- [x] Secrets en GitHub Actions: `GOOGLE_SERVICE_ACCOUNT_JSON` y `SEARCH_CONSOLE_SITE`.
+- [x] Primer ping manual: sitemap reenviado y 23 URLs del hub notificadas a Indexing API (todas OK).
 
 ---
 
