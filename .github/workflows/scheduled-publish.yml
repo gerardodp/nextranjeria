@@ -1,0 +1,57 @@
+name: "Scheduled Content Publisher"
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Diario a las 06:00 UTC (07:00-08:00 Madrid)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-scheduled:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run scheduled publisher
+        id: publish
+        run: npx tsx scripts/publish-scheduled.ts
+
+      - name: Regenerate llms.txt & llms-full.txt
+        if: steps.publish.outputs.updated == 'true'
+        run: npx tsx scripts/update-llms-txt.ts
+
+      - name: Commit and push changes
+        if: steps.publish.outputs.updated == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/ public/llms.txt public/llms-full.txt
+          git commit -m "content: publicar ${{ steps.publish.outputs.count }} contenido(s) programado(s)"
+          git push
+
+      - name: Notify Google Indexing API
+        if: steps.publish.outputs.updated == 'true'
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          PUBLISHED_FILES: ${{ steps.publish.outputs.files }}
+        run: npx tsx scripts/notify-indexing-api.ts
+
+      - name: Resubmit sitemap to Google Search Console
+        if: steps.publish.outputs.updated == 'true'
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          SEARCH_CONSOLE_SITE: ${{ secrets.SEARCH_CONSOLE_SITE }}
+        run: npx tsx scripts/notify-sitemap.ts
