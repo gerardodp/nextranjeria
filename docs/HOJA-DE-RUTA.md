@@ -1,7 +1,7 @@
 # Nextranjería — Hoja de ruta temporal
 
 > Documento operativo para ordenar el trabajo en el tiempo. Vivo: se actualiza conforme avanza el proyecto.
-> Última actualización: 16 de abril de 2026 (hub de regularización 2026 actualizado tras entrada en vigor del RD 316/2026 e infraestructura de indexación operativa).
+> Última actualización: 25 de abril de 2026 (fichas D.A. 20.ª y 21.ª en `/autorizaciones/` y bloque de procedimientos avanzados en `/tramites/`).
 
 ---
 
@@ -123,15 +123,17 @@
 ### 2.4 Ciudadanos UE/EEE
 - [ ] Certificado de registro de ciudadano UE
 - [ ] Residencia permanente UE
-- [ ] Tarjeta de familiar de ciudadano UE
+- [x] Tarjeta de familiar de ciudadano UE — cubierta por las dos fichas publicadas en Fase 2.2: `familiares-ciudadano-espanol.mdx` y `familiares-ciudadano-ue.mdx` (ambas en `/ciudadanos-ue/`)
 - [ ] Brexit: ciudadanos británicos en España
 
 ### 2.5 Procedimientos avanzados
-- [ ] Plazos de resolución y silencio administrativo
-- [ ] Recurso de alzada
-- [ ] Recurso de reposición
-- [ ] Recurso contencioso-administrativo
+- [x] Plazos de resolución y silencio administrativo — `/tramites/silencio-administrativo-extranjeria/`. Tabla por procedimiento (positivo/negativo), causas de suspensión del plazo, certificado acreditativo y plazos para recurrir tras silencio negativo
+- [x] Recurso de alzada — `/tramites/recurso-alzada-extranjeria/`. Cuándo cabe en extranjería (minoritario: visados, homologaciones), órgano superior jerárquico, plazos y diferencias con reposición
+- [x] Recurso de reposición — `/tramites/recurso-reposicion-extranjeria/`. Recurso potestativo ante el mismo órgano, estructura del escrito, decisión reposición vs. contencioso
+- [x] Recurso contencioso-administrativo — `/tramites/recurso-contencioso-extranjeria/`. Vía judicial, órgano competente, abogado/procurador obligatorios, justicia gratuita, costas, suspensión cautelar y recursos contra la sentencia
 - [ ] Plataforma MiResidencia: cómo usarla
+
+**Estado Fase 2.5: completada el 25 de abril de 2026** (4 de 5 fichas; MiResidencia queda pendiente como pieza más operativa que jurídica). 4 fichas técnicas nuevas en `/tramites/`, apoyadas en la Ley 39/2015 (PAC) y la Ley 29/1998 (LJCA). Distribución de autoría: Marcos Delgado (silencio), Elena Navarro (reposición), Javier Costa (alzada), Sofía Ramos (contencioso).
 
 ---
 
@@ -233,6 +235,24 @@ modifica el Reglamento de Extranjería (RD 1155/2024) y articula la llamada
 - [x] Workflow `.github/workflows/scheduled-publish.yml` con cron diario (06:00 UTC) para publicación programada + ping a Indexing API + reenvío de sitemap a GSC.
 - [x] Secrets en GitHub Actions: `GOOGLE_SERVICE_ACCOUNT_JSON` y `SEARCH_CONSOLE_SITE`.
 - [x] Primer ping manual: sitemap reenviado y 23 URLs del hub notificadas a Indexing API (todas OK).
+
+### Fichas de las nuevas vías de arraigo (25 de abril de 2026)
+
+Tras una semana con el hub funcionando con la regularización ya en
+vigor, el siguiente paso natural era darle a las dos D.A. su **propia
+ficha técnica en `/autorizaciones/`**, al mismo nivel que las cinco
+modalidades de arraigo ordinario. Hasta ahora vivían descritas dentro
+del hub (`/regularizacion-2026/que-es/`, `como-prepararse/`), pero
+faltaba la ficha de procedimiento autocontenida que el resto de
+arraigos sí tenían.
+
+- [x] `autorizaciones/arraigo-da-20-2026.mdx` — D.A. 20.ª (solicitantes de protección internacional). Autor: Marcos Delgado.
+- [x] `autorizaciones/arraigo-da-21-2026.mdx` — D.A. 21.ª (vía general con tres requisitos alternativos). Autora: Sofía Ramos.
+
+Ambas con `hub: regularizacion-2026` para que el hub las cargue como
+piezas propias y enlazadas con las FAQs preexistentes. Tabla
+comparativa entre ambas D.A. en la ficha de la 20.ª y comparativa con
+arraigo social ordinario en la de la 21.ª.
 
 ---
 
