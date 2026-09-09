@@ -17,7 +17,7 @@
 
 ### 0.1 Decisiones previas (bloqueantes)
 - [x] Confirmar nombre definitivo y dominio (Nextranjería, nextranjeria.com)
-- [x] Elegir stack técnico (Astro 6 + MDX + Tailwind v4 + 5 content collections con Zod — ver `.plans/arranque.md`)
+- [x] Elegir stack técnico (Astro 6 + MDX + Tailwind v4 + 5 content collections con Zod — ver `docs/ARQUITECTURA-TECNICA.md`)
 - [x] Decidir hosting y proceso de despliegue (Vercel, adapter `@astrojs/vercel`)
 - [ ] Definir flujo de actualización (quién edita, cómo se publica) — se formaliza en Hito 3 con workflows y slash commands
 
